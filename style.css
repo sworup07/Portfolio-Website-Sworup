@@ -1,301 +1,378 @@
-/* ============================================================
-   SWORUP POKHREL — Portfolio Stylesheet v2
-   Works in any browser with no build tools.
-   ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       SWORUP POKHREL — Personal Portfolio v2
+       Grade 12 PCM & CS Student | Aspiring Software Engineer
+       Put index.html, style.css, script.js, and images/ folder
+       in the same directory. Open index.html in any browser.
+  ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-/* ── Variables ─────────────────────────────────────────── */
-:root {
-  --bg:        #f8fafc;
-  --bg-alt:    #f1f5f9;
-  --surface:   #ffffff;
-  --text:      #0f172a;
-  --muted:     #64748b;
-  --border:    rgba(15,23,42,0.08);
-  --blue:      #3b82f6;
-  --purple:    #8b5cf6;
-  --gradient:  linear-gradient(135deg,#3b82f6,#8b5cf6);
-  --shadow-lg: 0 24px 60px rgba(15,23,42,0.12);
-  --radius:    14px;
-}
-body.dark {
-  --bg:        #0f172a;
-  --bg-alt:    #1e293b;
-  --surface:   #1e293b;
-  --text:      #e2e8f0;
-  --muted:     #94a3b8;
-  --border:    rgba(148,163,184,0.12);
-  --shadow-lg: 0 24px 60px rgba(0,0,0,0.5);
-}
+  <!-- Primary SEO -->
+  <title>Sworup Pokhrel | Aspiring Software Engineer & Web Developer</title>
+  <meta name="description" content="Portfolio of Sworup Pokhrel — Grade-XII PCM & CS student from Nepal, aspiring software engineer and web developer." />
+  <meta name="author" content="Sworup Pokhrel" />
+  <meta name="keywords" content="Sworup Pokhrel, Chetan Kumar Pokhrel, portfolio, software engineer, web developer, Nepal, student, Syangja, Asia" />
 
-/* ── Reset ─────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit}
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Sworup Pokhrel | Portfolio" />
+  <meta property="og:description" content="Aspiring software engineer & web developer from Nepal — Grade 12 PCM & CS student." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-portfolio-domain.com" />
+  <meta property="og:image" content="images/og-image.png" />
 
-/* ── Keyframes ─────────────────────────────────────────── */
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInUp  {from{opacity:0;transform:translateY(20px) }to{opacity:1;transform:translateY(0)}}
-@keyframes pulse     {0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes scrollLine{0%,100%{transform:scaleY(.5);opacity:.3}50%{transform:scaleY(1);opacity:.8}}
-@keyframes modalIn   {from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
-@keyframes slideIn   {from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sworup Pokhrel | Portfolio" />
+  <meta name="twitter:description" content="Aspiring software engineer & web developer from Nepal — Grade 12 PCM & CS student." />
+  <meta name="twitter:image" content="images/og-image.png" />
 
-/* ── Utility ───────────────────────────────────────────── */
-.container{max-width:1100px;margin:0 auto;padding:0 40px}
-.section{padding:96px 0}
-.section-alt{background:var(--bg-alt)}
-.gradient-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  <!-- Favicon with laptop emoji for trust -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
 
-/* ── Buttons ───────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .2s;letter-spacing:.01em;white-space:nowrap}
-.btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(59,130,246,.35)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(59,130,246,.45)}
-.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue)}
-.btn-outline:hover{background:var(--blue);color:#fff}
-.btn-ghost{background:var(--bg-alt);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  <!-- Apple Touch Icon for iOS -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
 
-/* ── Section Title ─────────────────────────────────────── */
-.section-title{text-align:center;margin-bottom:52px}
-.section-label{display:inline-block;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.12));border:1px solid rgba(59,130,246,.25);border-radius:100px;padding:6px 18px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-.section-title h2{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em;color:var(--text)}
+  <!-- Fonts (Performance Optimized) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
 
-/* ════════════════════════════════════════════════════════ NAVBAR════════════════════════════════════════════════════════ */
-#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;transition:all .3s}
-#navbar.scrolled{padding:12px 40px;background:rgba(248,250,252,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 4px 24px rgba(15,23,42,.06)}
-body.dark #navbar.scrolled{background:rgba(15,23,42,.95)}
-.nav-logo{font-weight:800;font-size:18px;letter-spacing:-.02em;cursor:pointer;color:var(--text)}
-.nav-logo span{color:var(--blue)}
-.nav-logo sub{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:6px;vertical-align:middle}
-.nav-links{display:flex;gap:4px;align-items:center;list-style:none}
-.nav-links a{display:flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--muted);transition:color .2s;position:relative}
-.nav-links a:hover,.nav-links a.active{color:var(--blue)}
-.nav-links a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--blue)}
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 
-/* Dark toggle */
-.dark-toggle{background:var(--bg-alt);border:1px solid var(--border);border-radius:100px;cursor:pointer;width:44px;height:24px;position:relative;transition:background .3s;flex-shrink:0}
-body.dark .dark-toggle{background:#334155}
-.dark-toggle::after{content:'☀';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;transition:left .3s;box-shadow:0 1px 3px rgba(0,0,0,.2);line-height:20px;text-align:center}
-body.dark .dark-toggle::after{content:'☾';left:calc(100% - 22px);background:#94a3b8}
-.desktop-toggle{margin-left:12px}
+  <!-- Optional: Theme color for mobile browser -->
+  <meta name="theme-color" content="#1f2937" />
+</head>
+<body>
 
-/* Mobile controls row */
-.nav-mobile-controls{display:none;align-items:center;gap:10px}
-.hamburger{display:flex;flex-direction:column;gap:5px;background:var(--bg-alt);border:1px solid var(--border);border-radius:10px;cursor:pointer;padding:8px 10px;width:40px;height:36px;justify-content:center;align-items:center}
-.hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
-.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+<!-- ════════════════════════════════════════════════════════ NAVBAR ════════════════════════════════════════════════════════ -->
+<nav id="navbar">
+ <a href="#home" data-section="home" class="nav-logo">
+  <span>S</span>worup<sub>Portfolio</sub>
+ </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#home"      data-section="home">Home</a></li>
+    <li><a href="#about"     data-section="about">About</a></li>
+    <li><a href="#gallery"   data-section="gallery">Gallery</a></li>
+    <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
+    <li><a href="#blog"      data-section="blog">Blog</a></li>
+    <li><a href="#contact"   data-section="contact">Contact</a></li>
+  </ul>
+  <!-- Mobile controls: hamburger + dark toggle always visible -->
+  <div class="nav-mobile-controls">
+    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode"></button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Desktop dark toggle (inside nav-links area) -->
+  <button class="dark-toggle desktop-toggle" id="dark-toggle-desktop" aria-label="Toggle dark mode"></button>
+</nav>
 
-/* Mobile menu */
-.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;z-index:999;padding:16px 20px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 12px 40px rgba(0,0,0,.12);flex-direction:column;gap:4px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{padding:12px 16px;border-radius:10px;font-weight:600;font-size:15px;color:var(--text);transition:background .2s}
-.mobile-menu a:hover{background:var(--bg-alt);color:var(--blue)}
-
-/* ════════════════════════════════════════════════════════ HERO════════════════════════════════════════════════════════ */
-#home{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;background:linear-gradient(135deg,#f8fafc 0%,#ede9fe 50%,#dbeafe 100%)}
-body.dark #home{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%)}
-#particle-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero-blob-1,.hero-blob-2{position:absolute;border-radius:50%;pointer-events:none}
-.hero-blob-1{top:15%;left:5%;width:400px;height:400px;background:rgba(59,130,246,.08);filter:blur(80px)}
-.hero-blob-2{bottom:10%;right:5%;width:500px;height:500px;background:rgba(139,92,246,.08);filter:blur(100px)}
-body.dark .hero-blob-1{background:rgba(59,130,246,.06)}
-body.dark .hero-blob-2{background:rgba(139,92,246,.06)}
-.hero-content{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:140px 40px 80px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);border-radius:100px;padding:8px 20px;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:32px;animation:fadeInDown .6s ease both}
-.badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;display:inline-block}
-.hero-content h1{font-size:clamp(34px,5vw,60px);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:var(--text);margin-bottom:24px;animation:fadeInUp .7s ease .1s both}
-.hero-sub{font-size:.72em;font-weight:700;display:block}
-.hero-desc{font-size:17px;line-height:1.85;color:var(--muted);max-width:640px;margin:0 auto 40px;animation:fadeInUp .7s ease .2s both}
-.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .7s ease .3s both}
-.scroll-cue{margin-top:72px;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.4;animation:fadeInUp .7s ease .5s both}
-.scroll-cue span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
-.scroll-cue .line{width:1px;height:40px;background:var(--muted);animation:scrollLine 2s ease-in-out infinite}
-
-/* ════════════════════════════════════════════════════════ ABOUT════════════════════════════════════════════════════════ */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.avatar-photo{width:110px;height:110px;border-radius:22px;overflow:hidden;margin-bottom:28px;box-shadow:0 12px 40px rgba(59,130,246,.28);border:3px solid var(--blue)}
-.avatar-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
-.bio-text{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:16px}
-.funfact-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-left:3px solid var(--blue);border-radius:14px;padding:16px 20px;font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px}
-.funfact-box strong{color:var(--blue)}
-.stats{display:flex;gap:28px;flex-wrap:wrap}
-.stat-num{font-size:22px;font-weight:800;color:var(--blue)}
-.stat-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.skills-title{font-size:17px;font-weight:700;margin-bottom:22px;color:var(--text)}
-.skill-item{margin-bottom:18px}
-.skill-header{display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px;font-weight:600}
-.skill-pct{opacity:.7}
-.skill-track{background:rgba(100,116,139,.15);border-radius:100px;height:8px;overflow:hidden}
-.skill-fill{height:100%;border-radius:100px;background:var(--gradient);width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
-.tag{background:var(--bg-alt);color:var(--muted);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:600}
-.timeline{margin-top:72px}
-.timeline h3{font-size:21px;font-weight:700;margin-bottom:32px;color:var(--text)}
-.timeline-track{position:relative;padding-left:32px}
-.timeline-track::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#3b82f6,#8b5cf6,transparent)}
-.timeline-item{position:relative;padding:0 0 34px 28px}
-.timeline-item::before{content:'';position:absolute;left:-6px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--gradient);box-shadow:0 0 0 3px var(--bg)}
-.timeline-year{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.timeline-role{font-size:15px;font-weight:700;margin-bottom:5px;color:var(--text)}
-.timeline-desc{font-size:14px;color:var(--muted);line-height:1.7}
-
-/* ════════════════════════════════════════════════════════ PHOTO GALLERY════════════════════════════════════════════════════════ */
-.gallery-viewer{position:relative;border-radius:22px;overflow:hidden;margin-bottom:14px;cursor:zoom-in;box-shadow:0 32px 80px rgba(0,0,0,.22);background:#000}
-body.dark .gallery-viewer{box-shadow:0 32px 80px rgba(0,0,0,.6)}
-.gallery-slides{position:relative;aspect-ratio:4/3;overflow:hidden}
-.gallery-slide{object-position: 30% 10%; position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .4s ease,transform .4s ease}
-.gallery-slide.active{opacity:1;transform:scale(1)}
-.gallery-caption{position:absolute;bottom:0;left:0;right:0;padding:32px 24px 20px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;pointer-events:none}
-.gallery-caption div:first-child{font-size:15px;font-weight:600}
-.gallery-caption div:last-child{font-size:12px;opacity:.7;margin-top:2px}
-.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);backdrop-filter:blur(6px);border:none;color:#fff;font-size:26px;width:42px;height:42px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s}
-.gallery-arrow:hover{background:rgba(59,130,246,.7)}
-.gallery-arrow.left{left:12px}
-.gallery-arrow.right{right:12px}
-.gallery-slide:nth-child(1){object-position: 30% 10%;}
-
-/* Thumbnails */
-.gallery-thumbs{display:flex;gap:10px;margin-bottom:18px}
-.gallery-thumb{flex:1;height:72px;border-radius:12px;overflow:hidden;cursor:pointer;border:2px solid var(--border);transition:all .2s}
-.gallery-thumb.active{border-color:var(--blue);transform:scale(1.05);box-shadow:0 4px 16px rgba(59,130,246,.35)}
-.gallery-thumb img{width:100%;height:100%;object-fit:cover;transition:filter .2s}
-.gallery-thumb:not(.active) img{filter:brightness(75%)}
-
-/* Controls */
-.photo-controls{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px}
-.controls-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em}
-.ctrl-row{margin-bottom:14px}
-.ctrl-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.ctrl-val{color:var(--blue);font-weight:700}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:100px;background:rgba(100,116,139,.2);cursor:pointer;outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 6px rgba(59,130,246,.4)}
-input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:none}
-.ctrl-reset{font-size:12px;font-weight:700;color:var(--blue);background:transparent;border:1px solid rgba(59,130,246,.3);border-radius:100px;padding:5px 14px;cursor:pointer;margin-top:4px;transition:background .2s}
-.ctrl-reset:hover{background:rgba(59,130,246,.1)}
-
-/* Lightbox */
-.lightbox{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px}
-.lightbox.open{display:flex}
-.lightbox-close{position:absolute;top:20px;right:24px;background:transparent;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;z-index:1}
-.lightbox-inner{max-width:900px;width:100%;text-align:center}
-.lightbox-inner img{width:100%;max-height:80vh;object-fit:contain;border-radius:14px}
-.lightbox-caption{color:rgba(255,255,255,.8);margin-top:12px;font-size:15px}
-.lightbox-nav{display:flex;justify-content:center;gap:16px;margin-top:16px}
-
-/* ════════════════════════════════════════════════════════ PORTFOLIO  ═══════════════════════════════════════════════════════ */
-.projects-grid{display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px} 
-.projects-grid::-webkit-scrollbar{display:none} 
-.project-card{flex:0 0 320px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:30px;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden} 
-.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);opacity:0;transition:opacity .25s} 
-.project-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--blue)} 
-.project-card:hover::before{opacity:1} 
-.project-icon{font-size:38px;margin-bottom:14px} 
-.project-title{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--text)} 
-.project-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px} 
-.project-tech{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px} 
-.tech-tag{background:var(--bg-alt);color:var(--muted);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:600} 
-.project-links{display:flex;align-items:center;justify-content:space-between} 
-.project-cta{font-size:13px;font-weight:600;color:var(--blue)} 
-.project-hint{font-size:11px;color:var(--muted)} 
-.portfolio-container{position:relative} 
-.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .2s, transform .2s;z-index:10} 
-#portfolio-prev{left:-18px} 
-#portfolio-next{right:-18px} 
-.carousel-btn:hover{background:var(--blue);color:#fff;transform:translateY(-50%) scale(1.1)}
-
-/* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
-.modal-overlay.open{display:flex}
-.modal-box{background:var(--surface);border-radius:20px;padding:40px;max-width:600px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.4);position:relative;animation:modalIn .25s ease both}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1}
-.modal-icon{font-size:48px;margin-bottom:12px}
-.modal-title{font-size:21px;font-weight:700;margin-bottom:8px;color:var(--text)}
-.modal-body{color:var(--muted);line-height:1.7;margin-bottom:20px;font-size:15px}
-.modal-tech{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.modal-actions{display:flex;gap:12px}
-
-/* ════════════════════════════════════════════════════════ BLOG════════════════════════════════════════════════════════ */
-.blog-carousel-wrapper{position:relative;overflow:hidden}
-.blog-grid{display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:10px 0}
-.blog-grid::-webkit-scrollbar{display:none}
-.blog-grid{-ms-overflow-style:none;scrollbar-width:none}
-.blog-grid{scroll-snap-type:x mandatory}
-.blog-card{scroll-snap-align:start}
-.blog-card{flex:0 0 300px;min-width:300px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
-.blog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
-.blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.blog-meta{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
-.blog-cat{background:rgba(59,130,246,.1);color:var(--blue);border-radius:100px;padding:3px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.blog-read{font-size:12px;color:var(--muted)}
-.blog-title{font-size:16px;font-weight:700;line-height:1.4;margin-bottom:10px;color:var(--text)}
-.blog-snippet{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px}
-.blog-footer{display:flex;justify-content:space-between;align-items:center}
-.blog-date{font-size:12px;color:var(--muted)}
-.blog-more{font-size:13px;font-weight:600;color:var(--blue)}
-.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);padding:8px 12px;border-radius:50%;cursor:pointer;z-index:10}
-.carousel-btn:hover{background:var(--blue);color:#fff}
-.carousel-btn.prev{left:0}
-.carousel-btn.next{right:0}
+<!-- Mobile dropdown -->
+<nav class="mobile-menu" id="mobile-menu">
+  <a href="#home"      data-section="home">Home</a>
+  <a href="#about"     data-section="about">About</a>
+  <a href="#gallery"   data-section="gallery">Gallery</a>
+  <a href="#portfolio" data-section="portfolio">Portfolio</a>
+  <a href="#blog"      data-section="blog">Blog / Insights</a>
+  <a href="#contact"   data-section="contact">Contact</a>
+</nav>
 
 
-/* ════════════════════════════════════════════════════════
-   CONTACT
-════════════════════════════════════════════════════════ */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-.contact-intro{font-size:16px;color:var(--muted);line-height:1.85;margin-bottom:32px}
-.social-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px}
-.social-icons{display:flex;gap:12px;margin-bottom:28px}
-.social-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);transition:all .2s}
-.social-icon svg{width:20px;height:20px;fill:currentColor}
-.social-icon:hover{transform:translateY(-3px)}
-.social-icon.fb:hover{background:#1877f2;color:#fff;border-color:#1877f2;box-shadow:0 8px 24px rgba(24,119,242,.35)}
-.social-icon.ig:hover{background:linear-gradient(135deg,#405de6,#833ab4,#e1306c,#fd1d1d);color:#fff;border-color:#c13584;box-shadow:0 8px 24px rgba(193,53,132,.4)}
-.social-icon.gm:hover{background:#ea4335;color:#fff;border-color:#ea4335;box-shadow:0 8px 24px rgba(234,67,53,.4)}
-.email-hint{background:var(--bg-alt);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--muted);border-left:3px solid var(--blue)}
-.form-group{margin-bottom:18px}
-.form-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;letter-spacing:.02em}
-.form-input,.form-textarea{width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
-.form-input:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
-.form-input.error,.form-textarea.error{border-color:#ef4444}
-.form-error{font-size:12px;color:#ef4444;margin-top:4px}
-.form-textarea{resize:vertical;min-height:130px}
-.form-success{display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:16px;padding:36px;text-align:center}
-.form-success.show{display:block}
-.success-icon{font-size:48px;margin-bottom:12px}
-.success-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:8px}
-.success-text{color:var(--muted);font-size:14px}
+<!-- ════════════════════════════════════════════════════════ HERO ════════════════════════════════════════════════════════ -->
+<section id="home">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-blob-1"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open to opportunities · Grade 12 PCM + CS, Nepal
+    </div>
+    <h1>
+      Hi, I'm <span class="gradient-text">Sworup Pokhrel</span>
+      <span class="hero-sub">Aspiring Software Engineer &amp; Web Developer</span>
+    </h1>
+    <p class="hero-desc">
+      A passionate student from Nepal turning ideas into impactful digital solutions —
+      blending strong mathematics, physics, and programming with elegant design.
+    </p>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn btn-primary">See My Work ↓</a>
+<a href="#contact" class="btn btn-outline">Hire Me</a>
+      <!-- Replace # with your CV file -->
+     <a href="#" class="btn btn-ghost" onclick="alert('📄 Digital CV will be available soon!'); return false;"> Download CV </a>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
+  </div>
+</section>
 
-/* ════════════════════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════════════════════ */
-footer{padding:28px 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:var(--bg);font-size:13px;color:var(--muted)}
-.back-top{background:var(--gradient);border:none;border-radius:100px;cursor:pointer;padding:8px 18px;color:#fff;font-size:13px;font-weight:600;transition:opacity .2s}
-.back-top:hover{opacity:.85}
 
-/* ════════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════════ */
-@media(max-width:768px){
-  .container{padding:0 20px}
-  .section{padding:68px 0}
-  #navbar{padding:14px 20px}
-  #navbar.scrolled{padding:10px 20px}
-  .nav-links,.desktop-toggle{display:none}
-  .nav-mobile-controls{display:flex}
-  .hero-content{padding:120px 20px 60px}
-  .hero-ctas{flex-direction:column;align-items:center}
-  .about-grid{grid-template-columns:1fr;gap:36px}
-  .projects-grid{grid-template-columns:1fr}
-  .blog-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr;gap:36px}
-  footer{flex-direction:column;text-align:center;padding:24px 20px}
-  .gallery-slides{aspect-ratio:3/4}
-  .blog-grid{padding-left:10px;padding-right:10px}
-  .carousel-btn{display:none}
-}
+<!-- ════════════════════════════════════════════════════════ ABOUT ════════════════════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-title">
+      <div class="section-label">About Me</div>
+      <h2>Building with Purpose</h2>
+    </div>
+    <div class="about-grid">
+      <!-- Bio -->
+      <div>
+        <!-- Replace with your actual photo (already in images/) -->
+        <div class="avatar-photo">
+          <img src="images/sworup2.jpeg" alt="Sworup Pokhrel" />
+        </div>
+        <p class="bio-text">
+          I am a passionate and determined student from Nepal, currently pursuing Grade 12 in
+          PCM and Computer Science. Driven by curiosity and ambition, I strive to turn ideas into
+          impactful digital solutions. With a strong foundation in mathematics, physics, and
+          programming, I aim to specialize in software engineering, creating applications and
+          websites that blend functionality with elegant design.
+        </p>
+        <p class="bio-text">
+          Beyond academics, I enjoy exploring coding projects, building interactive websites,
+          and participating in speech competitions, where I develop my communication and leadership
+          skills. I take pride in my scholarship achievements, and I'm constantly seeking
+          opportunities to learn, grow, and contribute meaningfully to the tech community.
+        </p>
+        <p class="bio-text">
+          I'm a believer in <strong>starting small and thinking big</strong> — focusing on
+          continuous improvement, innovative problem-solving, and building a professional portfolio
+          that reflects both creativity and technical expertise.
+        </p>
+        <div class="funfact-box">
+          <strong>⚡ Fun Fact:</strong> I'm passionate about learning and earning simultaneously —
+          aiming to build not only skills but also sustainable income streams through technology,
+          design, and smart projects.
+        </div>
+        <div class="stats">
+          <div><div class="stat-num">Grade 12</div><div class="stat-label">PCM + CS Student</div></div>
+          <div><div class="stat-num">4+</div><div class="stat-label">Projects Shipped</div></div>
+          <div><div class="stat-num">Nepal 🇳🇵</div><div class="stat-label">Based In</div></div>
+        </div>
+      </div>
+      <!-- Skills -->
+      <div>
+        <div class="skills-title">Skills &amp; Expertise</div>
+        <div id="skills-container"></div>
+        <div class="tags">
+          <span class="tag">HTML</span><span class="tag">CSS</span>
+          <span class="tag">JavaScript</span><span class="tag">Python</span>
+          <span class="tag">React</span><span class="tag">Node.js</span>
+          <span class="tag">Git</span><span class="tag">Figma</span>
+          <span class="tag">UI/UX</span><span class="tag">Public Speaking</span>
+          <span class="tag">Leadership</span>
+        </div>
+      </div>
+    </div>
+    <!-- Timeline -->
+    <div class="timeline">
+      <h3>Journey &amp; Milestones</h3>
+      <div class="timeline-track">
+        <div class="timeline-item">
+          <div class="timeline-year">2024 – Present</div>
+          <div class="timeline-role">Full Stack Developer Enthusiast</div>
+          <div class="timeline-desc">Building web apps using HTML, CSS, JS, Python and exploring React and Node.js while contributing to open-source projects.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-role">Graphic Design &amp; Branding Projects</div>
+          <div class="timeline-desc">Designed logos, social media graphics, and UI mockups; started exploring UI/UX fundamentals.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-role">Began Computer Science &amp; PCM Studies</div>
+          <div class="timeline-desc">Enrolled in Grade 11/12 with Physics, Chemistry, Mathematics and Computer Science focus.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-role">First Programming Steps</div>
+          <div class="timeline-desc">Self-taught Python and JavaScript; built first personal automation scripts and interactive websites.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════ PHOTO GALLERY ════════════════════════════════════════════════════════ -->
+<section id="gallery" class="section section-alt">
+  <div class="container" style="max-width:800px">
+    <div class="section-title">
+      <div class="section-label">Gallery</div>
+      <h2>Through the Lens</h2>
+    </div>
+
+    <!-- Main viewer -->
+    <div class="gallery-viewer" id="gallery-viewer">
+      <div class="gallery-slides" id="gallery-slides">
+        <img class="gallery-slide active" src="images/sworup1.jpeg" alt="2082 Dashain — Syangja " data-caption="2082 Dashain — Syangja" />
+        <img class="gallery-slide" src="images/sworup2.jpeg" alt="Little Refreshment" data-caption="Little Refreshment" />
+        <img class="gallery-slide" src="images/sworup3.jpg"  alt="Casual Vibes" data-caption="Casual Vibes" />
+        <img class="gallery-slide" src="images/sworup4.jpg"  alt="Bindhavasini Temple — Pokhara" data-caption="Bindhavasini Temple — Pokhara" />
+      </div>
+      <div class="gallery-caption" id="gallery-caption">
+        <div id="caption-text">2082 Dashain — Syangja</div>
+        <div id="caption-sub">1 / 4 · Click to zoom</div>
+      </div>
+      <button class="gallery-arrow left"  id="gallery-prev">‹</button>
+      <button class="gallery-arrow right" id="gallery-next">›</button>
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="gallery-thumbs" id="gallery-thumbs">
+      <div class="gallery-thumb active" data-idx="0"><img src="images/sworup1.jpeg" alt="" /></div>
+      <div class="gallery-thumb" data-idx="1"><img src="images/sworup2.jpeg" alt="" /></div>
+      <div class="gallery-thumb" data-idx="2"><img src="images/sworup3.jpg"  alt="" /></div>
+      <div class="gallery-thumb" data-idx="3"><img src="images/sworup4.jpg"  alt="" /></div>
+    </div>
+
+    <!-- Brightness / Contrast controls -->
+    <div class="photo-controls" id="photo-controls">
+      <div class="controls-title">🎛 Photo Controls</div>
+      <div class="ctrl-row">
+        <label class="ctrl-label">☀ Brightness <span id="brightness-val" class="ctrl-val">100%</span></label>
+        <input type="range" id="brightness-range" min="40" max="160" value="100" />
+      </div>
+      <div class="ctrl-row">
+        <label class="ctrl-label">◑ Contrast <span id="contrast-val" class="ctrl-val">100%</span></label>
+        <input type="range" id="contrast-range" min="60" max="160" value="100" />
+      </div>
+      <button id="reset-controls" class="ctrl-reset">Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img" src="" alt="" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+    <div class="lightbox-nav">
+      <button id="lb-prev" class="btn btn-primary">← Prev</button>
+      <button id="lb-next" class="btn btn-primary">Next →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════ PORTFOLIO ════════════════════════════════════════════════════════ -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="section-title">
+      <div class="section-label">Portfolio</div>
+      <h2>Selected Work</h2>
+    </div>
+    <div class="portfolio-container" style="position:relative;">
+      <button id="portfolio-prev" class="carousel-btn">←</button>
+      <div class="projects-grid" id="projects-grid"></div>
+      <button id="portfolio-next" class="carousel-btn">→</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════ BLOG ════════════════════════════════════════════════════════ -->
+<section id="blog" class="section section-alt">
+  <div class="container">
+    <div class="section-title">
+      <div class="section-label">Insights</div>
+      <h2>Thinking Out Loud</h2>
+    </div>
+
+    <div class="blog-carousel-wrapper">
+      <div class="blog-grid" id="blog-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ CONTACT ════════════════════════════════════════════════════════ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-title">
+      <div class="section-label">Contact</div>
+      <h2>Let's Work Together</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          Whether you have a project in mind, want to collaborate, or just want to say hello —
+          my inbox is always open. I'll respond within 24 hours.
+        </p>
+        <div class="social-label">Find me online</div>
+        <div class="social-icons">
+          <a class="social-icon fb" href="https://web.facebook.com/sworup.pokhrel.9" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a class="social-icon ig" href="https://www.instagram.com/will.be.back.on.2083_bs/?hl=en" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="social-icon gm" href="mailto:sworuppokhrel38@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.908 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          </a>
+        </div>
+        <div class="email-hint">📧 sworuppokhrel38@gmail.com</div>
+      </div>
+      <div>
+        <div class="form-success" id="form-success">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Message Sent!</div>
+          <p class="success-text">I'll get back to you within 24 hours.</p>
+          <button class="btn btn-ghost" id="reset-form" style="margin-top:20px">Send Another</button>
+         </div>
+
+  <form id="contact-form" action="https://formspree.io/f/meepnzry" method="POST" novalidate>
+  <div class="form-group">
+    <label class="form-label" for="f-name">Full Name</label>
+    <input class="form-input" type="text" name="name" id="f-name" placeholder="Sworup Pokhrel" required />
+    <div class="form-error" id="name-error"></div>
+  </div>
+  <div class="form-group">
+    <label class="form-label" for="f-email">Email Address</label>
+    <input class="form-input" type="email" name="email" id="f-email" placeholder="you@example.com" required />
+    <div class="form-error" id="email-error"></div>
+  </div>
+  <div class="form-group">
+    <label class="form-label" for="f-message">Message</label>
+    <textarea class="form-textarea" name="message" id="f-message" placeholder="Tell me about your project or idea..." required></textarea>
+    <div class="form-error" id="message-error"></div>
+  </div>
+  <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message →</button>
+</form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════ FOOTER ════════════════════════════════════════════════════════ -->
+<footer>
+  <span>© 2025 Sworup Pokhrel. All rights reserved.</span>
+  <span class="footer-stack">Grade 12 PCM &amp; CS · Nepal 🇳🇵</span>
+  <button class="back-top" id="back-top">↑ Back to top</button>
+</footer>
+
+
+<!-- Project Modal -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-icon" id="modal-icon"></div>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <p class="modal-body" id="modal-body"></p>
+    <div class="modal-tech" id="modal-tech"></div>
+    <div class="modal-actions">
+      <a id="modal-demo"   class="btn btn-primary" href="#">Live Demo →</a>
+      <a id="modal-github" class="btn btn-ghost"   href="#" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
