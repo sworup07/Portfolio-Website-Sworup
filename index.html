@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ====================================== SWORUP POKHREL — Personal Portfolio version 2.0 ============================================= -->
+  <!-- ============================================================
+       SWORUP POKHREL — Personal Portfolio v3
+       Grade 12 PCM & CS Student | Aspiring Software Engineer
+       Put index.html, style.css, script.js, and images/ folder
+       in the same directory. Open index.html in any browser.
+  ============================================================ -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -62,18 +67,57 @@
     <li><a href="#contact"   data-section="contact">Contact</a></li>
     <div class="nav-pill" id="nav-pill"></div>
   </ul>
-  <div class="nav-right">
-    <button class="dark-toggle desktop-toggle" id="dark-toggle-desktop" aria-label="Toggle dark mode"></button>
-  </div>
+   <div class="nav-right">
+       <button id="search-icon-btn" class="nav-search-btn" aria-label="Search (Ctrl+K)">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+         </svg>
+         <span class="nav-search-hint">Ctrl+K</span>
+       </button>
+       <button class="dark-toggle desktop-toggle" id="dark-toggle-desktop" aria-label="Toggle dark mode"></button>
+     </div>
+
+ <!-- Mobile Controls (Search, Dark Mode, Hamburger) -->
   <div class="nav-mobile-controls">
-    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode"></button>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+
+  <button id="search-icon-btn-mobile" class="nav-search-btn" aria-label="Search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+  </button>
+
+  <button class="dark-toggle" id="dark-toggle"></button>
+
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</div>
 </nav>
 
-<!-- ════════════════════════════════════════════════════════ MOBILE MENU ════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ MOBILE SEARCH ENGINE MENU ═════════════════════════════ -->
+
+<div class="search-backdrop" id="search-overlay"></div>
+     <div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="Site search">
+       <div class="search-modal-inner">
+         <div class="search-input-row">
+           <svg class="search-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+           <input id="search-input" class="search-input" type="search" placeholder="Search projects, blog, skills, sections…" autocomplete="off" spellcheck="false" />
+           <button id="search-clear" class="search-clear-btn" aria-label="Clear">✕</button>
+           <kbd class="search-esc-hint">Esc</kbd>
+         </div>
+         <div id="search-results" class="search-results"></div>
+         <div class="search-footer">
+           <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+           <span><kbd>↵</kbd> open</span>
+           <span><kbd>Esc</kbd> close</span>
+         </div>
+       </div>
+     </div>
+
+<!-- ═════════════════════════════════════ MOBILE HAMBURGER MENU ═════════════════════════════ -->
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-backdrop" id="mobile-backdrop"></div>
   <div class="mobile-menu-panel">
@@ -90,7 +134,7 @@
       <a href="#contact"   data-section="contact">   <span class="mm-icon">📬</span> Contact   </a>
     </nav>
     <div class="mobile-menu-footer">
-      <span>© 2026 Sworup Pokhrel</span>
+      <span>© 2026 Sworup Pokhrel - NP</span>
     </div>
   </div>
 </div>
@@ -203,6 +247,10 @@
         <img class="gallery-slide" src="images/sworup2.jpeg" alt="Little Refreshment" data-caption="Little Refreshment" />
         <img class="gallery-slide" src="images/sworup3.jpg"  alt="Casual Vibes" data-caption="Casual Vibes" />
         <img class="gallery-slide" src="images/sworup4.jpg"  alt="Bindhavasini Temple — Pokhara" data-caption="Bindhavasini Temple — Pokhara" />
+        <img class="gallery-slide" src="images/sworup5.jpeg" alt="Party Moment" data-caption="Party Moment" />
+        <img class="gallery-slide" src="images/sworup6.jpeg"  alt="Curtural Vibes" data-caption="Curtural Vibes" />
+        <img class="gallery-slide" src="images/sworup7.jpg"  alt="Aesthatic Vibes — Pokhara" data-caption="Aesthatic Vibes — Pokhara" />
+        <img class="gallery-slide" src="images/certificate1.jpg"  alt="Graphic Design Certificate" data-caption="Graphic Design Certificate" />
       </div>
       <div class="gallery-caption" id="gallery-caption">
         <div id="caption-text">2082 Dashain — Syangja</div>
@@ -216,6 +264,10 @@
       <div class="gallery-thumb" data-idx="1"><img src="images/sworup2.jpeg" alt="Thumbnail 2" /></div>
       <div class="gallery-thumb" data-idx="2"><img src="images/sworup3.jpg"  alt="Thumbnail 3" /></div>
       <div class="gallery-thumb" data-idx="3"><img src="images/sworup4.jpg"  alt="Thumbnail 4" /></div>
+      <div class="gallery-thumb" data-idx="4"><img src="images/sworup5.jpeg" alt="Thumbnail 5" /></div>
+      <div class="gallery-thumb" data-idx="5"><img src="images/sworup6.jpeg"  alt="Thumbnail 6" /></div>
+      <div class="gallery-thumb" data-idx="6"><img src="images/sworup7.jpg"  alt="Thumbnail 7" /></div>
+      <div class="gallery-thumb" data-idx="7"><img src="images/certificate1.jpg"  alt="Thumbnail 8" /></div>
     </div>
     <div class="photo-controls" id="photo-controls">
       <div class="controls-title">🎛 Photo Controls</div>
@@ -275,6 +327,19 @@
   </div>
 </section>
 
+<!-- Blog Post Modal -->
+<div class="blog-modal-overlay" id="blog-modal">
+  <div class="blog-modal-box" id="blog-modal-inner">
+ 
+    <!-- Close button -->
+    <button class="blog-modal-close" id="blog-modal-close" aria-label="Close post">✕</button>
+ 
+    <!-- All content is injected here by openBlogModal() in render.js -->
+    <div id="blog-modal-content"></div>
+ 
+  </div>
+</div>
+
 
 <!-- ════════════════════════════════════════════════════════ CONTACT ════════════════════════════════════════════════════════ -->
 <section id="contact" class="section">
@@ -294,11 +359,11 @@
           <a class="social-icon ig" href="https://www.instagram.com/will.be.back.on.2083_bs/?hl=en" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a class="social-icon gm" href="mailto:sworuppokhrel@gmail.com" aria-label="Email">
+          <a class="social-icon gm" href="/cdn-cgi/l/email-protection#2d5e5a425f585d5d4246455f48416d4a404c4441034e4240" aria-label="Email">
             <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.908 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
           </a>
         </div>
-        <div class="email-hint">📧 sworuppokhrel@gmail.com</div>
+        <div class="email-hint">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a494d55484f4a4a555152485f567a5d575b535614595557">[email&#160;protected]</a></div>
       </div>
       <div>
         <div class="form-success" id="form-success">
@@ -354,6 +419,13 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<!-- ════════════════════════════════════════════════════════ SCRIPTS ════════════════════════════════════════════════════════ -->
+<script src="js/search.js"></script>
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/render.js"></script>
+<script src="js/carousel.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
