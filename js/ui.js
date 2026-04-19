@@ -1,271 +1,348 @@
 /* ============================================================
-   ui.js — ALL UI BEHAVIOUR
-   Covers: Progress bar, Navbar, Dark mode, Mobile menu,
-           Particles, Gallery + Lightbox, Skills animation,
-           Back to top button.
-   Uses scrollToSection() from utils.js.
+   ui.js — All UI interactions
+   • Navbar: scroll effect, active link, nav-pill
+   • Dark mode toggle (desktop + mobile)
+   • Hamburger mobile menu
+   • Profile tooltip (desktop)
+   • Scroll progress bar
+   • Back-to-top button
+   • Contact form validation
+   • CV download toast
+   • Particle canvas hero
+   Depends on: utils.js
    ============================================================ */
 
+'use strict';
 
-/* ========================= SCROLL PROGRESS BAR ========================= */
-/* Fills the thin gradient line at the very top as the user scrolls */
-function initProgressBar() {
-  const fill = document.getElementById("nav-progress-fill");
-  if (!fill) return;
-  window.addEventListener("scroll", () => {
-    const max = document.body.scrollHeight - window.innerHeight;
-    fill.style.width = max > 0 ? (window.scrollY / max) * 100 + "%" : "0%";
-  }, { passive: true });
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-
-/* ========================= NAVBAR ========================= */
-/* Frosted glass on scroll, scroll spy active link, sliding pill indicator */
-function initNavbar() {
-  const navbar   = document.getElementById("navbar");
-  const sections = ["home", "about", "gallery", "portfolio", "blog", "contact"];
-  const links    = document.querySelectorAll(".nav-links a");
-  const pill     = document.getElementById("nav-pill");
-
-  // Moves the sliding pill behind whichever link is active
-  function movePill(activeLink) {
-    if (!pill || !activeLink) return;
-    const navRect  = document.querySelector(".nav-links").getBoundingClientRect();
-    const linkRect = activeLink.getBoundingClientRect();
-    pill.style.left  = (linkRect.left - navRect.left) + "px";
-    pill.style.width = linkRect.width + "px";
+  /* ════════════════════════ SCROLL PROGRESS BAR ════════════════════════ */
+  const progressFill = $('#nav-progress-fill');
+  if (progressFill) {
+    window.addEventListener('scroll', () => {
+      const total   = document.body.scrollHeight - window.innerHeight;
+      const pct     = total > 0 ? (window.scrollY / total) * 100 : 0;
+      progressFill.style.width = pct + '%';
+    }, { passive: true });
   }
 
-  function onScroll() {
-    if (!navbar) return;
-    // Frosted glass after scrolling 20px
-    navbar.classList.toggle("scrolled", window.scrollY > 20);
-    // Scroll spy — find which section is in view
-    let current = "home";
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 160) current = id;
-    });
-    // Update active link and slide the pill
-    links.forEach(a => {
-      const isActive = a.dataset.section === current;
-      a.classList.toggle("active", isActive);
-      if (isActive) movePill(a);
+  /* ════════════════════════ NAVBAR — scroll shrink effect ════════════════════════ */
+
+  const navbar = $('#navbar');
+  if (navbar) {
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     ACTIVE NAV LINK + NAV-PILL
+     ══════════════════════════════════════════════════════════ */
+  const navLinks    = $$('.nav-links a');
+  const navPill     = $('#nav-pill');
+  const navLinksEl  = $('#nav-links');
+  const sections    = $$('section[id]');
+
+  function movePill(link) {
+    if (!navPill || !link || !navLinksEl) return;
+    const linkRect = link.getBoundingClientRect();
+    const ulRect   = navLinksEl.getBoundingClientRect();
+    navPill.style.left  = (linkRect.left - ulRect.left) + 'px';
+    navPill.style.width = linkRect.width + 'px';
+  }
+
+  function setActiveLink(id) {
+    navLinks.forEach(a => {
+      const active = a.dataset.section === id;
+      a.classList.toggle('active', active);
+      if (active) movePill(a);
     });
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true }); // reposition pill on resize
-  setTimeout(onScroll, 50); // run once on load so pill is in place immediately
+  /* Intersection observer for sections */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) setActiveLink(e.target.id);
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
 
-  // Smooth scroll on desktop nav link click
-  links.forEach(a => {
-    a.addEventListener("click", e => {
-      e.preventDefault();
-      const target = document.getElementById(a.dataset.section);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
+  sections.forEach(s => {
+    if ($$('[data-section="' + s.id + '"]').length) io.observe(s);
+  });
+
+  /* Set initial pill on first active link */
+  const firstActive = navLinks.find(a => a.classList.contains('active'));
+  if (firstActive) movePill(firstActive);
+  else if (navLinks[0]) setTimeout(() => movePill(navLinks[0]), 100);
+
+  /* Pill on window resize */
+  window.addEventListener('resize', debounce(() => {
+    const active = navLinks.find(a => a.classList.contains('active')) || navLinks[0];
+    if (active) movePill(active);
+  }, 150));
+
+  /* ===============Dark Mode Toggle ================================== */
+  const toggleDesktop = $('#dark-toggle-desktop');
+  const toggleMobile  = $('#dark-toggle');
+
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.body.classList.add('dark');
+  }
+
+  function updateDarkAriaLabels() {
+    const isDark = document.body.classList.contains('dark');
+    const label  = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    toggleDesktop?.setAttribute('aria-label', label);
+    toggleMobile?.setAttribute('aria-label',  label);
+  }
+  updateDarkAriaLabels();
+
+  function applyDarkToggle() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    updateDarkAriaLabels();
+  }
+
+  toggleDesktop?.addEventListener('click', applyDarkToggle);
+  toggleMobile?.addEventListener('click',  applyDarkToggle);
+
+  /* ════════════════════════════ HAMBURGER / MOBILE MENU═════════════════════════════════ */
+  const hamburger  = $('#hamburger');
+  const mobileMenu = $('#mobile-menu');
+  const mobileClose = $('#mobile-menu-close');
+  const mobileBackdrop = $('#mobile-backdrop');
+  const mobileNavLinks = $$('.mobile-menu-links a');
+
+  function openMobileMenu() {
+    mobileMenu?.classList.add('open');
+    hamburger?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    mobileClose?.focus();
+  }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.remove('open');
+    hamburger?.classList.remove('open');
+    document.body.style.overflow = '';
+    hamburger?.focus();
+  }
+
+  hamburger?.addEventListener('click', openMobileMenu);
+  mobileClose?.addEventListener('click', closeMobileMenu);
+  mobileBackdrop?.addEventListener('click', closeMobileMenu);
+
+  mobileNavLinks.forEach(a => {
+    a.addEventListener('click', () => {
       closeMobileMenu();
     });
   });
-}
 
-
-/* ========================= DARK MODE ========================= */
-/* Toggles dark class on body and saves preference to localStorage */
-function initDarkMode() {
-  const toggles = document.querySelectorAll("#dark-toggle, #dark-toggle-desktop");
-  if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    });
-  });
-}
-
-
-/* ========================= MOBILE MENU ========================= */
-/* Slide-in panel from the right with blurred backdrop */
-function initMobileMenu() {
-  const hamburger  = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const closeBtn   = document.getElementById("mobile-menu-close");
-  const backdrop   = document.getElementById("mobile-backdrop");
-  if (!hamburger || !mobileMenu) return;
-
-  // Open
-  hamburger.addEventListener("click", () => {
-    hamburger.classList.add("open");
-    mobileMenu.classList.add("open");
-    document.body.style.overflow = "hidden"; // prevent page scroll behind menu
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) closeMobileMenu();
   });
 
-  // Close — via X button, backdrop tap, or Escape key
-  closeBtn?.addEventListener("click", closeMobileMenu);
-  backdrop?.addEventListener("click", closeMobileMenu);
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeMobileMenu(); });
+  /* ══════════════════════════════════════════════════════════
+     PROFILE TOOLTIP (DESKTOP)
+     ══════════════════════════════════════════════════════════ */
+  const profileBtn = $('#nav-profile');
+  const profileTip = $('#profile-tooltip');
 
-  // Smooth scroll + close on link tap
-  mobileMenu.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", e => {
-      e.preventDefault();
-      const target = document.getElementById(a.dataset.section);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
-      closeMobileMenu();
-    });
-  });
-}
-
-function closeMobileMenu() {
-  document.getElementById("hamburger")?.classList.remove("open");
-  document.getElementById("mobile-menu")?.classList.remove("open");
-  document.body.style.overflow = ""; // restore page scroll
-}
-
-
-/* ========================= PARTICLES ========================= */
-/* Floating dot particles on the hero canvas */
-function initParticles() {
-  const canvas = document.getElementById("particle-canvas");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  let w, h;
-
-  function resize() {
-    w = canvas.width  = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  const particles = Array.from({ length: 60 }, () => ({
-    x:  Math.random() * w,
-    y:  Math.random() * h,
-    r:  Math.random() * 2,
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
-  }));
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-      p.x = (p.x + p.dx + w) % w;
-      p.y = (p.y + p.dy + h) % h;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-}
-
-
-/* ========================= SKILLS ANIMATION ========================= */
-/* Animates skill bar widths when the About section scrolls into view */
-function initSkillsObserver() {
-  const container = document.getElementById("skills-container");
-  const section   = document.getElementById("about");
-  if (!container || !section) return;
-
-  const observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      container.querySelectorAll(".skill-fill").forEach(bar => {
-        bar.style.width = bar.dataset.level + "%";
-      });
-      observer.disconnect(); // animate only once
+  if (profileBtn && profileTip) {
+    /* Move tooltip into nav-right so CSS position:absolute works correctly */
+    const navRight = $('.nav-right');
+    if (navRight && !navRight.contains(profileTip)) {
+      navRight.appendChild(profileTip);
     }
-  }, { threshold: 0.25 });
 
-  observer.observe(section);
-}
+    profileBtn.setAttribute('aria-expanded', 'false');
+    profileBtn.setAttribute('aria-haspopup', 'true');
 
+    profileBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = profileTip.classList.toggle('open');
+      profileBtn.setAttribute('aria-expanded', String(isOpen));
+    });
 
-/* ========================= BACK TO TOP ========================= */
-function initBackTop() {
-  document.getElementById("back-top")?.addEventListener("click", () => {
-    scrollToSection("home");
-  });
-}
+    document.addEventListener('click', e => {
+      if (!profileTip.contains(e.target) && e.target !== profileBtn) {
+        profileTip.classList.remove('open');
+        profileBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
 
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && profileTip.classList.contains('open')) {
+        profileTip.classList.remove('open');
+        profileBtn.setAttribute('aria-expanded', 'false');
+        profileBtn.focus();
+      }
+    });
 
-/* ========================= GALLERY ========================= */
-/* Photo gallery: slide navigation, thumbnails, lightbox, brightness/contrast */
-function initGallery() {
-  const slides          = document.querySelectorAll(".gallery-slide");
-  const thumbs          = document.querySelectorAll(".gallery-thumb");
-  const captionText     = document.getElementById("caption-text");
-  const captionSub      = document.getElementById("caption-sub");
-  const prevBtn         = document.getElementById("gallery-prev");
-  const nextBtn         = document.getElementById("gallery-next");
-  const lightbox        = document.getElementById("lightbox");
-  const lightboxImg     = document.getElementById("lightbox-img");
-  const lightboxCaption = document.getElementById("lightbox-caption");
-  const lbPrev          = document.getElementById("lb-prev");
-  const lbNext          = document.getElementById("lb-next");
-  const lbClose         = document.getElementById("lightbox-close");
-  const brightness      = document.getElementById("brightness-range");
-  const contrast        = document.getElementById("contrast-range");
-
-  let current = 0;
-  if (!slides.length) return;
-
-  function updateGallery(index) {
-    slides.forEach((s, i) => s.classList.toggle("active", i === index));
-    thumbs.forEach((t, i) => t.classList.toggle("active", i === index));
-    captionText.textContent = slides[index].dataset.caption || "";
-    captionSub.textContent  = `${index + 1} / ${slides.length} · Click to zoom`;
-    current = index;
+    trapFocus(profileTip);
   }
 
-  // Gallery arrows
-  prevBtn?.addEventListener("click", () => { updateGallery((current - 1 + slides.length) % slides.length); });
-  nextBtn?.addEventListener("click", () => { updateGallery((current + 1) % slides.length); });
-
-  // Thumbnails
-  thumbs.forEach(t => {
-    t.addEventListener("click", () => { updateGallery(+t.dataset.idx); });
+  /* ══════════════════════════════════════════════════════════
+     CV DOWNLOAD BUTTON → TOAST
+     ══════════════════════════════════════════════════════════ */
+  $('#cv-download-btn')?.addEventListener('click', e => {
+    e.preventDefault();
+    showToast('📄 Digital CV will be available soon! Stay tuned.', 3500);
   });
 
-  // Lightbox open
-  slides.forEach((img, i) => {
-    img.addEventListener("click", () => {
-      lightbox.classList.add("open");
-      lightboxImg.src = img.src;
-      lightboxCaption.textContent = img.dataset.caption || "";
-      current = i;
+  /* ══════════════════════════════════════════════════════════
+     BACK TO TOP
+     ══════════════════════════════════════════════════════════ */
+  $('#back-top')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ══════════════════════════════════════════════════════════
+     CONTACT FORM VALIDATION
+     ══════════════════════════════════════════════════════════ */
+  const form        = $('#contact-form');
+  const formSuccess = $('#form-success');
+  const resetFormBtn = $('#reset-form');
+
+  function setError(inputId, errorId, msg) {
+    const input = $('#' + inputId);
+    const error = $('#' + errorId);
+    if (input)  input.classList.toggle('error', !!msg);
+    if (error)  error.textContent = msg || '';
+  }
+
+  function validateForm() {
+    let valid = true;
+    const name    = $('#f-name')?.value.trim()    || '';
+    const email   = $('#f-email')?.value.trim()   || '';
+    const message = $('#f-message')?.value.trim() || '';
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name)               { setError('f-name',    'name-error',    'Please enter your name.');             valid = false; }
+    else                     { setError('f-name',    'name-error',    ''); }
+
+    if (!emailRe.test(email)){ setError('f-email',   'email-error',   'Please enter a valid email address.'); valid = false; }
+    else                     { setError('f-email',   'email-error',   ''); }
+
+    if (message.length < 10) { setError('f-message', 'message-error', 'Message must be at least 10 characters.'); valid = false; }
+    else                     { setError('f-message', 'message-error', ''); }
+
+    return valid;
+  }
+
+  form?.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const submitBtn = form.querySelector('[type=submit]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body:   new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        form.style.display        = 'none';
+        if (formSuccess) formSuccess.classList.add('show');
+      } else {
+        showToast('❌ Failed to send. Please try emailing directly.', 4000);
+      }
+    } catch {
+      showToast('❌ Network error. Please try again.', 4000);
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send Message →'; }
+    }
+  });
+
+  resetFormBtn?.addEventListener('click', () => {
+    form?.reset();
+    if (form)        form.style.display   = '';
+    if (formSuccess) formSuccess.classList.remove('show');
+    ['f-name','f-email','f-message'].forEach(id => {
+      $('#' + id)?.classList.remove('error');
+    });
+    ['name-error','email-error','message-error'].forEach(id => {
+      const el = $('#' + id);
+      if (el) el.textContent = '';
     });
   });
 
-  // Lightbox navigation
-  function updateLightbox(index) {
-    lightboxImg.src = slides[index].src;
-    lightboxCaption.textContent = slides[index].dataset.caption || "";
-    current = index;
+  /* ══════════════════════════════════════════════════════════
+     PARTICLE CANVAS HERO
+     ══════════════════════════════════════════════════════════ */
+  const canvas = $('#particle-canvas');
+  if (canvas) {
+    const ctx    = canvas.getContext('2d');
+    let particles = [];
+    let animId;
+    let visible  = true;
+
+    function resize() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', debounce(resize, 200));
+
+    function createParticles() {
+      const count = Math.min(60, Math.floor(canvas.width / 20));
+      particles = Array.from({ length: count }, () => ({
+        x:  Math.random() * canvas.width,
+        y:  Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r:  Math.random() * 2 + 1,
+        a:  Math.random() * 0.4 + 0.1,
+      }));
+    }
+    createParticles();
+
+    function draw() {
+      if (!visible) { animId = requestAnimationFrame(draw); return; }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const isDark = document.body.classList.contains('dark');
+      const color  = isDark ? '148,163,184' : '100,116,139';
+
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width)  p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color},${p.a})`;
+        ctx.fill();
+      });
+
+      /* Draw connecting lines */
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx   = particles[i].x - particles[j].x;
+          const dy   = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(${color},${0.12 * (1 - dist / 100)})`;
+            ctx.lineWidth   = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    /* Pause particles when hero is off-screen (save battery) */
+    const heroIO = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+    }, { threshold: 0.1 });
+    heroIO.observe($('#home'));
   }
 
-  lbPrev?.addEventListener("click",  () => { updateLightbox((current - 1 + slides.length) % slides.length); });
-  lbNext?.addEventListener("click",  () => { updateLightbox((current + 1) % slides.length); });
-  lbClose?.addEventListener("click", () => { lightbox.classList.remove("open"); });
-  lightbox?.addEventListener("click", e => { if (e.target === lightbox) lightbox.classList.remove("open"); });
-
-  // Brightness / Contrast controls
-  function applyFilters() {
-    const b = brightness.value;
-    const c = contrast.value;
-    slides.forEach(img => { img.style.filter = `brightness(${b}%) contrast(${c}%)`; });
-    document.getElementById("brightness-val").textContent = b + "%";
-    document.getElementById("contrast-val").textContent   = c + "%";
-  }
-
-  brightness?.addEventListener("input", applyFilters);
-  contrast?.addEventListener("input",   applyFilters);
-  document.getElementById("reset-controls")?.addEventListener("click", () => {
-    brightness.value = 100;
-    contrast.value   = 100;
-    applyFilters();
-  });
-
-  updateGallery(0);
-}
+});

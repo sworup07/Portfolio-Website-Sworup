@@ -21,14 +21,17 @@
   <meta property="og:description" content="Aspiring software engineer & web developer from Nepal — Grade 12 PCM & CS student." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sworupdev.netlify.app/" />
-  <meta property="og:image" content="images/og-image.png" />
+  <meta property="og:image" content="https://sworupdev.netlify.app/images/og-image.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Sworup Pokhrel | Portfolio" />
   <meta name="twitter:description" content="Aspiring software engineer & web developer from Nepal — Grade 12 PCM & CS student." />
-  <meta name="twitter:image" content="images/og-image.png" />
+  <meta name="twitter:image" content="https://sworupdev.netlify.app/images/og-image.png" />
   <meta name="google-site-verification" content="29ZSYDr7bgHMgVVTycfFZmWXpV1KStxvbchEfIYFiKU" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://sworupdev.netlify.app/" />
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
@@ -44,8 +47,9 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Theme color for mobile browser -->
-  <meta name="theme-color" content="#1f2937" />
+  <!-- Theme color for mobile browser (light/dark) -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8fafc" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#0f172a" />
 </head>
 <body>
 
@@ -74,7 +78,16 @@
          </svg>
          <span class="nav-search-hint">Ctrl+K</span>
        </button>
-       <button class="dark-toggle desktop-toggle" id="dark-toggle-desktop" aria-label="Toggle dark mode"></button>
+       <button class="dark-toggle desktop-toggle" id="dark-toggle-desktop" aria-label="Switch to dark mode"></button>
+       <!-- Profile Icon (futuristic — Google login coming soon) -->
+       <div class="nav-profile" id="nav-profile" title="Sign in with Google (coming soon)">
+         <div class="nav-profile-avatar" id="nav-profile-avatar">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+           </svg>
+         </div>
+         <span class="nav-profile-dot"></span>
+       </div>
      </div>
 
  <!-- Mobile Controls (Search, Dark Mode, Hamburger) -->
@@ -133,10 +146,92 @@
       <a href="#blog"      data-section="blog">      <span class="mm-icon">✍️</span> Blog      </a>
       <a href="#contact"   data-section="contact">   <span class="mm-icon">📬</span> Contact   </a>
     </nav>
+    <!-- Profile row — taps to open full bottom sheet -->
+    <div class="mobile-menu-profile" id="mobile-profile-btn">
+      <div class="mm-profile-avatar" id="mm-profile-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span class="mm-profile-dot" id="mm-profile-dot"></span>
+      </div>
+      <div class="mm-profile-info">
+        <div class="mm-profile-title" id="mm-profile-title">Sign in with Google</div>
+        <div class="mm-profile-sub"   id="mm-profile-sub">Tap to sign in</div>
+      </div>
+      <span class="mm-profile-arrow">›</span>
+    </div>
+
     <div class="mobile-menu-footer">
       <span>© 2026 Sworup Pokhrel - NP</span>
     </div>
   </div>
+</div>
+
+
+<!-- ═════════════════════════════════════ MOBILE PROFILE BOTTOM SHEET ════════════════════════════════════ -->
+<div class="mobile-profile-sheet-backdrop" id="sheet-backdrop"></div>
+<div class="mobile-profile-sheet" id="mobile-profile-sheet" role="dialog" aria-modal="true" aria-label="Profile">
+
+  <!-- Drag handle -->
+  <div class="sheet-handle"></div>
+
+  <!-- Header — changes when logged in/out -->
+  <div class="sheet-header" id="sheet-header">
+    <div class="sheet-avatar" id="sheet-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+    <div class="sheet-user-info">
+      <div class="sheet-name"  id="sheet-name">Welcome</div>
+      <div class="sheet-email" id="sheet-email">Sign in to unlock all features</div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="sheet-divider"></div>
+
+  <!-- Actions — shown when logged OUT -->
+  <div class="sheet-section" id="sheet-logged-out">
+    <button class="sheet-action sheet-action-primary" id="sheet-google-signin">
+      <span class="sheet-action-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      </span>
+      <span class="sheet-action-text">Continue with Google</span>
+      <span class="sheet-action-arrow">→</span>
+    </button>
+    <div class="sheet-signin-note">
+      <span>🔒</span> Your Google account keeps your identity. Sworup can't see your password.
+    </div>
+  </div>
+
+  <!-- Actions — shown when logged IN -->
+  <div class="sheet-section" id="sheet-logged-in" style="display:none">
+    <div class="sheet-user-stats" id="sheet-user-stats">
+      <div class="sheet-stat">
+        <span class="sheet-stat-num" id="sheet-likes-count">–</span>
+        <span class="sheet-stat-label">Likes Given</span>
+      </div>
+      <div class="sheet-stat-div"></div>
+      <div class="sheet-stat">
+        <span class="sheet-stat-num" id="sheet-comments-count">–</span>
+        <span class="sheet-stat-label">Comments</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-divider" id="sheet-divider-2" style="display:none"></div>
+
+  <!-- Sign out — only shown when logged in -->
+  <div class="sheet-section" id="sheet-signout-section" style="display:none">
+    <button class="sheet-action sheet-action-danger" id="sheet-signout">
+      <span class="sheet-action-icon">🚪</span>
+      <span class="sheet-action-text">Sign Out</span>
+    </button>
+  </div>
+
+  <!-- Footer note -->
+  <div class="sheet-footer">Made with ❤️ in Nepal · Sworup Pokhrel</div>
 </div>
 
 
@@ -152,8 +247,8 @@
     </div>
     <h1>
       Hi, I'm <span class="gradient-text">Sworup Pokhrel</span>
-      <span class="hero-sub">Aspiring Software Engineer &amp; Web Developer</span>
     </h1>
+    <p class="hero-sub">Aspiring Software Engineer &amp; Web Developer</p>
     <p class="hero-desc">
       A passionate student from Nepal turning ideas into impactful digital solutions —
       blending strong mathematics, physics, and programming with elegant design.
@@ -161,7 +256,7 @@
     <div class="hero-ctas">
       <a href="#portfolio" class="btn btn-primary">See My Work ↓</a>
       <a href="#contact" class="btn btn-outline">Hire Me</a>
-      <a href="#" class="btn btn-ghost" onclick="alert('📄 Digital CV will be available soon!'); return false;">Download CV</a>
+      <a href="#" class="btn btn-ghost" id="cv-download-btn">Download CV</a>
     </div>
     <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
   </div>
@@ -236,63 +331,93 @@
 
 <!-- ════════════════════════════════════════════════════════ PHOTO GALLERY ════════════════════════════════════════════════════════ -->
 <section id="gallery" class="section section-alt">
-  <div class="container" style="max-width:800px">
+  <div class="container">
     <div class="section-title">
       <div class="section-label">Gallery</div>
       <h2>Through the Lens</h2>
     </div>
-    <div class="gallery-viewer" id="gallery-viewer">
-      <div class="gallery-slides" id="gallery-slides">
-        <img class="gallery-slide active" src="images/sworup1.jpeg" alt="2082 Dashain — Syangja" data-caption="2082 Dashain — Syangja" />
-        <img class="gallery-slide" src="images/sworup2.jpeg" alt="Little Refreshment" data-caption="Little Refreshment" />
-        <img class="gallery-slide" src="images/sworup3.jpg"  alt="Casual Vibes" data-caption="Casual Vibes" />
-        <img class="gallery-slide" src="images/sworup4.jpg"  alt="Bindhavasini Temple — Pokhara" data-caption="Bindhavasini Temple — Pokhara" />
-        <img class="gallery-slide" src="images/sworup5.jpeg" alt="Party Moment" data-caption="Party Moment" />
-        <img class="gallery-slide" src="images/sworup6.jpeg"  alt="Curtural Vibes" data-caption="Curtural Vibes" />
-        <img class="gallery-slide" src="images/sworup7.jpg"  alt="Aesthatic Vibes — Pokhara" data-caption="Aesthatic Vibes — Pokhara" />
-        <img class="gallery-slide" src="images/certificate1.jpg"  alt="Graphic Design Certificate" data-caption="Graphic Design Certificate" />
-      </div>
-      <div class="gallery-caption" id="gallery-caption">
-        <div id="caption-text">2082 Dashain — Syangja</div>
-        <div id="caption-sub">1 / 4 · Click to zoom</div>
-      </div>
-      <button class="gallery-arrow left"  id="gallery-prev">‹</button>
-      <button class="gallery-arrow right" id="gallery-next">›</button>
-    </div>
-    <div class="gallery-thumbs" id="gallery-thumbs">
-      <div class="gallery-thumb active" data-idx="0"><img src="images/sworup1.jpeg" alt="Thumbnail 1" /></div>
-      <div class="gallery-thumb" data-idx="1"><img src="images/sworup2.jpeg" alt="Thumbnail 2" /></div>
-      <div class="gallery-thumb" data-idx="2"><img src="images/sworup3.jpg"  alt="Thumbnail 3" /></div>
-      <div class="gallery-thumb" data-idx="3"><img src="images/sworup4.jpg"  alt="Thumbnail 4" /></div>
-      <div class="gallery-thumb" data-idx="4"><img src="images/sworup5.jpeg" alt="Thumbnail 5" /></div>
-      <div class="gallery-thumb" data-idx="5"><img src="images/sworup6.jpeg"  alt="Thumbnail 6" /></div>
-      <div class="gallery-thumb" data-idx="6"><img src="images/sworup7.jpg"  alt="Thumbnail 7" /></div>
-      <div class="gallery-thumb" data-idx="7"><img src="images/certificate1.jpg"  alt="Thumbnail 8" /></div>
-    </div>
-    <div class="photo-controls" id="photo-controls">
-      <div class="controls-title">🎛 Photo Controls</div>
-      <div class="ctrl-row">
-        <label class="ctrl-label">☀ Brightness <span id="brightness-val" class="ctrl-val">100%</span></label>
-        <input type="range" id="brightness-range" min="40" max="160" value="100" />
-      </div>
-      <div class="ctrl-row">
-        <label class="ctrl-label">◑ Contrast <span id="contrast-val" class="ctrl-val">100%</span></label>
-        <input type="range" id="contrast-range" min="60" max="160" value="100" />
-      </div>
-      <button id="reset-controls" class="ctrl-reset">Reset</button>
-    </div>
+    <!-- Hybrid Card Grid — rendered by carousel.js -->
+    <div class="photo-grid" id="photo-grid"></div>
   </div>
 </section>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightbox-close">✕</button>
-  <div class="lightbox-inner">
-    <img id="lightbox-img" src="" alt="" />
-    <div id="lightbox-caption" class="lightbox-caption"></div>
-    <div class="lightbox-nav">
-      <button id="lb-prev" class="btn btn-primary">← Prev</button>
-      <button id="lb-next" class="btn btn-primary">Next →</button>
+<!-- ═══════════════════════════ GALLERY MODAL ═══════════════════════════ -->
+<div class="gallery-modal" id="gallery-modal" role="dialog" aria-modal="true" aria-label="Photo detail">
+  <div class="gm-inner">
+
+    <!-- LEFT: Image -->
+    <div class="gm-image-side">
+      <img id="gm-img" src="" alt="" />
+      <button class="gm-arrow gm-prev" id="gm-prev" aria-label="Previous photo">‹</button>
+      <button class="gm-arrow gm-next" id="gm-next" aria-label="Next photo">›</button>
+    </div>
+
+    <!-- RIGHT: Panel -->
+    <div class="gm-panel">
+
+      <!-- Panel header -->
+      <div class="gm-panel-header">
+        <div class="gm-panel-avatar">
+          <img src="images/sworup1.jpeg" alt="Sworup Pokhrel" />
+        </div>
+        <div class="gm-panel-meta">
+          <div class="gm-panel-user">sworup.pokhrel</div>
+          <div class="gm-panel-location" id="gm-location"></div>
+        </div>
+        <button class="gm-close" id="gm-close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Caption -->
+      <div class="gm-caption-row">
+        <span class="gm-caption" id="gm-caption"></span>
+      </div>
+
+      <div class="gm-divider"></div>
+
+      <!-- Action bar: Like · Comment · Save · Share -->
+      <div class="gm-actions">
+        <button class="gm-act-btn gm-like-btn" id="gm-like-btn" aria-label="Like" aria-pressed="false">
+          <svg class="gm-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="gm-act-label">Like</span>
+        </button>
+        <button class="gm-act-btn gm-cmt-toggle" id="gm-cmt-toggle" aria-label="Comments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="gm-act-label">Comment</span>
+        </button>
+        <button class="gm-act-btn gm-save-btn" id="gm-save-btn" aria-label="Save">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="gm-act-label">Save</span>
+        </button>
+        <button class="gm-act-btn gm-share-btn" id="gm-share-btn" aria-label="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span class="gm-act-label">Share</span>
+        </button>
+      </div>
+
+      <!-- Stats row -->
+      <div class="gm-stats">
+        <span class="gm-stat-likes"><span id="gm-like-num">0</span> likes</span>
+        <span class="gm-stat-sep">·</span>
+        <span class="gm-stat-cmts"><span id="gm-cmt-num">0</span> comments</span>
+      </div>
+
+      <div class="gm-divider"></div>
+
+      <!-- Comment thread -->
+      <div class="gm-cmt-section">
+        <div class="gm-cmt-list" id="gm-cmt-list"></div>
+        <div class="gm-cmt-input-wrap" id="gm-cmt-input-wrap"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -305,7 +430,7 @@
       <div class="section-label">Portfolio</div>
       <h2>Selected Work</h2>
     </div>
-    <div class="portfolio-container" style="position:relative;">
+    <div class="portfolio-container">
       <button id="portfolio-prev" class="carousel-btn">←</button>
       <div class="projects-grid" id="projects-grid"></div>
       <button id="portfolio-next" class="carousel-btn">→</button>
@@ -330,13 +455,27 @@
 <!-- Blog Post Modal -->
 <div class="blog-modal-overlay" id="blog-modal">
   <div class="blog-modal-box" id="blog-modal-inner">
- 
-    <!-- Close button -->
     <button class="blog-modal-close" id="blog-modal-close" aria-label="Close post">✕</button>
- 
-    <!-- All content is injected here by openBlogModal() in render.js -->
+    <!-- Sticky interaction bar at top of modal -->
+    <div class="blog-sticky-bar" id="blog-sticky-bar">
+      <div class="bsb-title" id="bsb-title"></div>
+      <div class="bsb-actions">
+        <button class="bsb-btn bsb-like" id="bsb-like" aria-label="Like" aria-pressed="false">
+          <svg class="bsb-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="bsb-like-count" id="bsb-like-count">0</span>
+        </button>
+        <button class="bsb-btn bsb-comment" id="bsb-comment" aria-label="Jump to comments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="bsb-cmt-count" id="bsb-cmt-count">0</span>
+        </button>
+      </div>
+    </div>
+    <!-- All body content injected by render.js -->
     <div id="blog-modal-content"></div>
- 
   </div>
 </div>
 
@@ -359,18 +498,18 @@
           <a class="social-icon ig" href="https://www.instagram.com/will.be.back.on.2083_bs/?hl=en" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a class="social-icon gm" href="/cdn-cgi/l/email-protection#2d5e5a425f585d5d4246455f48416d4a404c4441034e4240" aria-label="Email">
+          <a class="social-icon gm" href="mailto:sworuppokhrel@gmail.com" aria-label="Email">
             <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.908 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
           </a>
         </div>
-        <div class="email-hint">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a494d55484f4a4a555152485f567a5d575b535614595557">[email&#160;protected]</a></div>
+        <div class="email-hint">📧 <a href="mailto:sworuppokhrel@gmail.com">sworuppokhrel@gmail.com</a></div>
       </div>
       <div>
         <div class="form-success" id="form-success">
           <div class="success-icon">✅</div>
           <div class="success-title">Message Sent!</div>
           <p class="success-text">I'll get back to you within 24 hours.</p>
-          <button class="btn btn-ghost" id="reset-form" style="margin-top:20px">Send Another</button>
+          <button class="btn btn-ghost" id="reset-form" >Send Another</button>
         </div>
         <form id="contact-form" action="https://formspree.io/f/meepnzry" method="POST" novalidate>
           <div class="form-group">
@@ -388,7 +527,7 @@
             <textarea class="form-textarea" name="message" id="f-message" placeholder="Tell me about your project or idea..." required></textarea>
             <div class="form-error" id="message-error"></div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message →</button>
+          <button type="submit" class="btn btn-primary btn-submit-full">Send Message →</button>
         </form>
       </div>
     </div>
@@ -419,13 +558,42 @@
   </div>
 </div>
 
+<!-- ════════ TOAST NOTIFICATION ════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ════════ PROFILE TOOLTIP ════════ -->
+<div class="profile-tooltip" id="profile-tooltip">
+  <div class="profile-tooltip-inner">
+    <div class="profile-tooltip-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+    <div>
+      <div class="profile-tooltip-title">Sign in with Google</div>
+      <div class="profile-tooltip-sub">Like &amp; comment on blogs and gallery</div>
+    </div>
+  </div>
+  <button class="profile-tooltip-btn" id="profile-login-btn">
+    <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    Continue with Google
+  </button>
+  <div class="profile-tooltip-note">Coming soon — stay tuned!</div>
+</div>
+
 <!-- ════════════════════════════════════════════════════════ SCRIPTS ════════════════════════════════════════════════════════ -->
-<script src="js/search.js"></script>
-<script src="js/data.js"></script>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<!-- Portfolio modules — order matters -->
 <script src="js/utils.js"></script>
+<script src="js/data.js"></script>
 <script src="js/render.js"></script>
 <script src="js/carousel.js"></script>
+<script src="js/search.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

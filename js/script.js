@@ -1,65 +1,57 @@
 /* ============================================================
-   script.js — ENTRY POINT
-   This file controls everything. It starts the whole portfolio.
+   script.js — Entry point / boot sequence
+   This file just documents load order and adds any global
+   one-time setup that doesn't belong in a specific module.
 
-   FILE STRUCTURE:
-   js/
-   ├── script.js   ← YOU ARE HERE — starts everything
-   ├── data.js     ← all data: projects, blog posts, skills
-   ├── render.js   ← builds HTML: cards, modal, blog modal, form
-   ├── carousel.js ← portfolio + blog sliders
-   ├── ui.js       ← navbar, dark mode, menu, particles, gallery
-   ├── search.js   ← Ctrl+K spotlight search
-   └── utils.js    ← helper functions
-
-   LOAD ORDER IN index.html (must be in this exact order):
-   <script src="js/data.js"></script>
-   <script src="js/utils.js"></script>
-   <script src="js/render.js"></script>
-   <script src="js/carousel.js"></script>
-   <script src="js/ui.js"></script>
-   <script src="js/search.js"></script>
-   <script src="js/script.js"></script>
+   Load order in index.html:
+     1. utils.js   — helpers ($, showToast, debounce, trapFocus)
+     2. data.js    — PORTFOLIO_DATA content
+     3. render.js  — skills, projects, blog cards + modals
+     4. carousel.js — gallery slider, lightbox, photo controls
+     5. search.js  — Ctrl+K search modal
+     6. ui.js      — navbar, dark mode, hamburger, particles, form
+     7. auth.js    — Firebase Google login
+     8. script.js  — this file (final init)
    ============================================================ */
 
+'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-  /* --- UI & Layout --- */
-  initProgressBar();       // scroll progress bar at top              → ui.js
-  initNavbar();            // frosted glass, scroll spy, sliding pill  → ui.js
-  initDarkMode();          // dark/light toggle + localStorage          → ui.js
-  initMobileMenu();        // slide-in panel, backdrop, Escape key     → ui.js
-  initParticles();         // floating dots on hero canvas             → ui.js
-  initBackTop();           // back to top button                       → ui.js
-
-  /* --- Content Rendering --- */
-  renderProjects();        // build project cards from data.js         → render.js
-  renderBlog();            // build blog cards from data.js            → render.js
-  renderSkills();          // build skill bars from data.js            → render.js
-  initSkillsObserver();    // animate skill bars on scroll             → ui.js
-  initForm();              // contact form validation + Formspree      → render.js
-
-  /* --- Carousels --- */
-  initPortfolioCarousel(); // snap scroll, drag, touch, buttons        → carousel.js
-  initBlogCarousel();      // auto-slide desktop, touch swipe mobile   → carousel.js
-
-  /* --- Gallery --- */
-  initGallery();           // slides, thumbnails, lightbox, filters    → ui.js
-
-  /* --- Search --- */
-  initSearch();            // Ctrl+K spotlight search                  → search.js
-
-  /* --- Project Modal --- */
-  document.getElementById("modal-close")?.addEventListener("click", closeModal);
-  document.getElementById("modal")?.addEventListener("click", e => {
-    if (e.target === e.currentTarget) closeModal();
+  /* ── Smooth scroll for ALL anchor links (#section) ──────── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 
-  /* --- Blog Modal --- */
-  document.getElementById("blog-modal-close")?.addEventListener("click", closeBlogModal);
-  document.getElementById("blog-modal")?.addEventListener("click", e => {
-    if (e.target === e.currentTarget) closeBlogModal();
+  /* ── Animate elements into view on scroll ─────────────── */
+  const animateTargets = document.querySelectorAll(
+    '.timeline-item, .project-card, .blog-card, .stat-num, .funfact-box'
+  );
+
+  const fadeIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity   = '1';
+        e.target.style.transform = 'translateY(0)';
+        fadeIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  animateTargets.forEach(el => {
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    fadeIO.observe(el);
   });
+
+  /* ── Console Easter egg ─────────────────────────────────── */
+  console.log('%c👋 Hey developer!', 'font-size:18px;font-weight:bold;color:#3b82f6;');
+  console.log('%cYou\'re looking at Sworup Pokhrel\'s portfolio — built with vanilla HTML, CSS & JS.\nFeel free to inspect the code. If you spot something to improve, reach out!', 'color:#64748b;');
 
 });
