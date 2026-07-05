@@ -793,3 +793,126 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
   .blog-sticky-bar       { padding:10px 16px; }
   .bsb-title             { display:none; }
 }
+/* ════════════════════════════════════════════════════════
+   NEW SECTIONS — v4 EXPANSION
+   Expertise · Services · Commercial Ads · Why Work With Me
+   Creative Process · Tools · Future Vision · Testimonials
+   FAQ · CTA
+   ════════════════════════════════════════════════════════ */
+
+.section-intro          { max-width:680px; margin:-24px auto 44px; text-align:center; font-size:14.5px; line-height:1.75; color:var(--muted); }
+.subsection-title       { margin-top:72px; }
+
+/* ── shared card look ─────────────────────────────────── */
+.expertise-card, .service-card, .ad-card, .whyme-card, .vision-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; position:relative; overflow:hidden;
+}
+.expertise-card::before, .service-card::before, .ad-card::before, .whyme-card::before, .vision-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); opacity:0; transition:opacity .25s;
+}
+.expertise-card:hover, .service-card:hover, .ad-card:hover, .whyme-card:hover, .vision-card:hover {
+  transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:var(--blue);
+}
+.expertise-card:hover::before, .service-card:hover::before, .ad-card:hover::before,
+.whyme-card:hover::before, .vision-card:hover::before { opacity:1; }
+
+/* ── EXPERTISE ──────────────────────────────────────────── */
+.expertise-grid          { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; }
+.expertise-top           { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.expertise-icon          { font-size:30px; }
+.expertise-group         { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--blue); background:rgba(59,130,246,.1); border-radius:100px; padding:3px 10px; }
+.expertise-name          { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.expertise-desc          { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:18px; min-height:56px; }
+.expertise-track         { margin-bottom:8px; }
+.expertise-pct           { font-size:12px; font-weight:700; color:var(--blue); text-align:right; }
+
+/* ── SERVICES ───────────────────────────────────────────── */
+.services-grid           { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+.service-icon             { font-size:34px; margin-bottom:16px; }
+.service-title            { font-size:18px; font-weight:800; color:var(--text); margin-bottom:10px; }
+.service-desc             { font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:16px; }
+.service-list             { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.service-list li          { font-size:13px; color:var(--text); padding-left:20px; position:relative; }
+.service-list li::before  { content:'✓'; position:absolute; left:0; color:var(--blue); font-weight:800; }
+
+/* ── COMMERCIAL AD SHOWCASE ─────────────────────────────── */
+.ads-grid                { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
+.ad-card-top             { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; }
+.ad-icon                 { font-size:32px; }
+.ad-label                { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#ea580c; background:rgba(251,146,60,.14); border:1px solid rgba(251,146,60,.35); border-radius:100px; padding:4px 10px; white-space:nowrap; }
+.ad-title                { font-size:17px; font-weight:700; color:var(--text); margin-bottom:10px; }
+.ad-desc                 { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:18px; }
+.ad-tags                 { display:flex; flex-wrap:wrap; gap:8px; }
+
+/* ── WHY WORK WITH ME ───────────────────────────────────── */
+.whyme-grid              { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+.whyme-icon              { font-size:32px; margin-bottom:14px; }
+.whyme-title             { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.whyme-desc              { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── CREATIVE PROCESS ───────────────────────────────────── */
+.process-track           { display:grid; grid-template-columns:repeat(5,1fr); gap:20px; }
+.process-item            { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 20px; text-align:center; position:relative; transition:transform .25s,border-color .25s; }
+.process-item:hover       { transform:translateY(-4px); border-color:var(--blue); }
+.process-step             { font-size:28px; font-weight:800; background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+.process-title            { font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.process-desc             { font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+/* ── CREATIVE TOOLS ─────────────────────────────────────── */
+.tools-wrap               { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:20px; }
+.tool-chip                { background:var(--bg-alt); border:1px solid var(--border); color:var(--text); border-radius:100px; padding:9px 20px; font-size:13px; font-weight:600; transition:border-color .2s,color .2s,transform .2s; }
+.tool-chip:hover          { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+
+/* ── FUTURE VISION ──────────────────────────────────────── */
+.vision-grid              { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+.vision-icon              { font-size:32px; margin-bottom:14px; }
+.vision-title             { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.vision-desc              { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── SOCIAL PROOF / TESTIMONIAL PLACEHOLDERS ────────────── */
+.testimonial-placeholder-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+.testimonial-placeholder-card {
+  background:var(--bg-alt); border:1.5px dashed var(--border); border-radius:20px; padding:32px 26px; text-align:center;
+}
+.tp-quote-icon            { font-size:42px; font-weight:800; color:var(--blue); opacity:.35; line-height:1; margin-bottom:10px; font-family:Georgia,serif; }
+.tp-placeholder-text      { font-size:14px; font-weight:600; color:var(--text); line-height:1.6; margin-bottom:10px; }
+.tp-placeholder-sub       { font-size:12px; color:var(--muted); }
+
+/* ── FAQ ACCORDION ──────────────────────────────────────── */
+.faq-list                { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+.faq-item                 { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:border-color .2s; }
+.faq-item.open            { border-color:var(--blue); }
+.faq-question             { width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:inherit; font-size:14.5px; font-weight:700; color:var(--text); text-align:left; }
+.faq-chevron               { flex-shrink:0; font-size:18px; color:var(--blue); transition:transform .25s ease; }
+.faq-item.open .faq-chevron { transform:rotate(180deg); }
+.faq-answer                { max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; padding:0 24px; }
+.faq-item.open .faq-answer  { max-height:320px; padding:0 24px 22px; }
+.faq-answer p               { font-size:13.5px; color:var(--muted); line-height:1.75; }
+
+/* ── CTA SECTION ─────────────────────────────────────────── */
+.cta-section              { position:relative; background:var(--gradient); overflow:hidden; padding:88px 0; }
+.cta-section::before       { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 55%); }
+.cta-container             { position:relative; text-align:center; }
+.cta-heading                { font-size:clamp(26px,3.4vw,42px); font-weight:800; color:#fff; letter-spacing:-.02em; margin-bottom:16px; }
+.cta-sub                    { font-size:15px; color:rgba(255,255,255,.9); max-width:560px; margin:0 auto 32px; line-height:1.7; }
+.cta-actions                { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
+.cta-section .btn-primary   { background:#fff; color:var(--blue); box-shadow:0 8px 30px rgba(0,0,0,.18); }
+.cta-section .btn-primary:hover { opacity:.92; }
+.cta-section .btn-outline   { border-color:#fff; color:#fff; }
+.cta-section .btn-outline:hover { background:#fff; color:var(--blue); }
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — NEW SECTIONS
+   ════════════════════════════════════════════════════════ */
+@media (max-width:900px) {
+  .process-track { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:640px) {
+  .process-track { grid-template-columns:1fr; }
+  .expertise-grid, .services-grid, .ads-grid, .whyme-grid, .vision-grid,
+  .testimonial-placeholder-grid { grid-template-columns:1fr; }
+  .faq-question { padding:16px 18px; font-size:13.5px; }
+  .faq-item.open .faq-answer { padding:0 18px 18px; }
+  .cta-heading { font-size:24px; }
+}

@@ -14,6 +14,126 @@ const PORTFOLIO_DATA = {
     { name: 'Git & GitHub',  pct: 75 },
   ],
 
+  /* ── Expertise cards (dedicated "My Expertise" section) ─── */
+  expertise: [
+    { icon: '🧱', name: 'HTML',                pct: 92, group: 'Development', desc: 'Semantic, accessible markup built for performance and SEO.' },
+    { icon: '🎨', name: 'CSS',                 pct: 88, group: 'Development', desc: 'Modern layout systems — Flexbox, Grid, animations, responsive design.' },
+    { icon: '⚙️', name: 'JavaScript',          pct: 78, group: 'Development', desc: 'Vanilla JS architecture, DOM interactivity, API integration.' },
+    { icon: '📱', name: 'Responsive Design',   pct: 85, group: 'Development', desc: 'Mobile-first builds that adapt cleanly across every device.' },
+    { icon: '🖌️', name: 'Graphic Design',       pct: 82, group: 'Design',      desc: 'Logos, posters, brochures, banners and brand collateral.' },
+    { icon: '🎬', name: 'Motion Advertisement', pct: 70, group: 'Creative',    desc: 'Short-form product and brand videos with AI-assisted motion.' },
+    { icon: '🤖', name: 'AI Prompt Engineering', pct: 80, group: 'Creative',   desc: 'Directing AI image & video tools to produce commercial-grade output.' },
+    { icon: '🧠', name: 'Creative Strategy',    pct: 75, group: 'Creative',    desc: 'Turning a brand idea into a clear, scroll-stopping concept.' },
+    { icon: '📣', name: 'Commercial Advertising', pct: 74, group: 'Creative',  desc: 'Spec advertisement concepts built with storytelling and structure.' },
+    { icon: '🏷️', name: 'Branding',             pct: 76, group: 'Design',      desc: 'Consistent visual identity — color, type, tone, and voice.' },
+  ],
+
+  /* ── Services offered ────────────────────────────────────── */
+  services: [
+    {
+      icon: '💻', title: 'Website Development',
+      desc: 'Fast, responsive, SEO-friendly websites — from portfolios to full business sites — built with clean, maintainable code.',
+      items: ['Landing Pages', 'Portfolio Websites', 'Business Websites'],
+    },
+    {
+      icon: '🖼️', title: 'Graphic Design',
+      desc: 'Visual assets that make a brand instantly recognizable, across print and digital.',
+      items: ['Poster Design', 'Brochure Design', 'Business Card Design', 'Banner & Roll-up Design', 'Restaurant Menus', 'Packaging Design'],
+    },
+    {
+      icon: '📲', title: 'Social Media Creatives',
+      desc: 'Scroll-stopping posts and ad creatives tailored for Meta platforms and organic growth.',
+      items: ['Social Media Post Design', 'Facebook Ads', 'Instagram Ads', 'YouTube Thumbnails'],
+    },
+    {
+      icon: '🎥', title: 'AI Commercial Advertisements',
+      desc: 'Premium, cinematic-style product and brand advertisements produced with AI-assisted video and image generation.',
+      items: ['Short-form Product Ads', 'AI Cinematic Commercials', 'Product Promotion Videos', 'Luxury Advertisement Concepts'],
+    },
+    {
+      icon: '🧭', title: 'Creative Consultation',
+      desc: 'Strategic direction for a brand\'s visual identity and advertising approach, from concept to execution.',
+      items: ['Creative Direction', 'Brand Visual Campaigns', 'Product Launch Creatives', 'Advertising Concepts'],
+    },
+    {
+      icon: '🏢', title: 'Brand Identity',
+      desc: 'Cohesive brand systems that carry a consistent look and voice across every touchpoint.',
+      items: ['Logo Design', 'Brand Identity Concepts', 'Marketing Visual Design'],
+    },
+  ],
+
+  /* ── Independent commercial ad / spec showcase ──────────── */
+  adConcepts: [
+    {
+      icon: '🥤', title: 'Refresh — Beverage Launch Concept', label: 'Independent Creative Concept',
+      desc: 'A cinematic, high-energy spec commercial exploring how a beverage brand could position a summer product launch. Built entirely with AI-assisted visuals and motion for concept demonstration.',
+      tags: ['AI Video', 'Product Launch', 'Storytelling'],
+    },
+    {
+      icon: '👟', title: 'Stride — Footwear Ad Concept', label: 'Spec Advertisement',
+      desc: 'A short-form vertical ad concept designed for Meta placements, focused on movement, texture, and rhythm to demonstrate a high-converting creative structure.',
+      tags: ['Meta Ads', 'Motion Graphics', 'Vertical Format'],
+    },
+    {
+      icon: '⌚', title: 'Aurum — Luxury Watch Concept', label: 'Independent Creative Concept',
+      desc: 'A slow, premium-feeling cinematic concept exploring luxury advertisement pacing, lighting, and typography — built as a personal exercise in high-end commercial direction.',
+      tags: ['Luxury', 'Cinematic', 'AI Commercial'],
+    },
+    {
+      icon: '📱', title: 'Nimbus — Tech Product Reveal', label: 'Spec Advertisement',
+      desc: 'A clean, Apple-inspired product reveal concept demonstrating minimal motion design and confident brand pacing for a fictional tech product.',
+      tags: ['Product Reveal', 'Minimal', 'Brand Campaign'],
+    },
+  ],
+
+  /* ── Why work with me ───────────────────────────────────── */
+  whyWorkWithMe: [
+    { icon: '⚡', title: 'Fast & Reliable',       desc: 'Clear communication, realistic timelines, and dependable delivery on every project.' },
+    { icon: '🎯', title: 'Detail-Oriented',       desc: 'Every pixel, prompt, and line of copy is considered — nothing is left to chance.' },
+    { icon: '🧩', title: 'Full-Stack Creative',   desc: 'Development, design, and advertising under one roof — no need to juggle multiple freelancers.' },
+    { icon: '🚀', title: 'Future-Focused',        desc: 'Constantly learning the newest AI and web tools to keep client work ahead of the curve.' },
+    { icon: '💬', title: 'Honest Collaboration',  desc: 'Transparent about scope, cost, and what\'s realistically achievable — no overselling.' },
+    { icon: '🌱', title: 'Growth Mindset',        desc: 'Early in a software engineering journey, but building real, usable, production-quality work today.' },
+  ],
+
+  /* ── Creative process ───────────────────────────────────── */
+  process: [
+    { step: '01', title: 'Discover',   desc: 'Understand the brand, audience, and goal behind the project before touching a single pixel.' },
+    { step: '02', title: 'Concept',    desc: 'Sketch ideas, moodboards, and creative directions — narrowing down to the strongest angle.' },
+    { step: '03', title: 'Design & Build', desc: 'Execute the chosen direction — whether that\'s code, design, or an AI-assisted advertisement.' },
+    { step: '04', title: 'Refine',     desc: 'Iterate based on feedback, polish details, and stress-test across devices and formats.' },
+    { step: '05', title: 'Deliver',    desc: 'Hand off production-ready files, source assets, and clear documentation.' },
+  ],
+
+  /* ── Creative tools ──────────────────────────────────────── */
+  tools: [
+    { name: 'VS Code' }, { name: 'Figma' }, { name: 'Photoshop' }, { name: 'Illustrator' },
+    { name: 'Premiere Pro' }, { name: 'CapCut' }, { name: 'Canva' },
+    { name: 'Midjourney' }, { name: 'Runway' }, { name: 'ChatGPT' }, { name: 'Claude' },
+    { name: 'Git & GitHub' }, { name: 'Netlify' }, { name: 'Google Workspace' },
+  ],
+
+  /* ── Future vision ───────────────────────────────────────── */
+  futureVision: [
+    { icon: '🎓', title: 'Software Engineering Degree', desc: 'Pursuing a Bachelor\'s in Software Engineering to deepen technical foundations in systems, algorithms, and scalable architecture.' },
+    { icon: '🤝', title: 'Agency-Level Creative Work',   desc: 'Growing this practice into a small creative studio blending web development with commercial advertising.' },
+    { icon: '🌍', title: 'Global Client Base',           desc: 'Expanding beyond Nepal to collaborate with international brands and businesses.' },
+    { icon: '🧪', title: 'AI-Native Production',         desc: 'Going deeper into AI video, prompt engineering, and automated creative pipelines.' },
+  ],
+
+  /* ── FAQ ─────────────────────────────────────────────────── */
+  faq: [
+    { q: 'What services do you offer?', a: 'Website development (landing pages, portfolios, business sites), graphic design (posters, brochures, banners, business cards), social media creatives, and AI-assisted commercial advertisements and product videos.' },
+    { q: 'Are the advertisement concepts on this site real client work?', a: 'No — the commercial advertisement showcase features independently created spec concepts built to demonstrate advertising ideas and storytelling skills. They are not affiliated with, endorsed by, or created for the brands referenced, and no official partnership is implied.' },
+    { q: 'Do you work with international clients?', a: 'Yes. Work is delivered remotely, and communication happens over email or your preferred messaging platform regardless of location.' },
+    { q: 'What is your typical turnaround time?', a: 'It depends on project scope — a simple graphic can take about 3-4 hours , while a full website or ad campaign concept may take one to three days. Timelines are always agreed on before starting.' },
+    { q: 'Can you help with both design and development?', a: 'Yes — that is the core strength of this practice: handling design, development, and creative advertising direction together instead of splitting the work across multiple people.' },
+    { q: 'How do we get started?', a: 'Reach out through the contact form or email with a short brief of what you need. A response typically comes within 24 hours.' },
+  ],
+
+  /* ── Social proof placeholders (ready for real testimonials) ── */
+  testimonialsPlaceholder: true,
+
   projects: [
     {
       icon: '🎓',
@@ -26,12 +146,12 @@ const PORTFOLIO_DATA = {
     },
     {
       icon: '🪪',
-      title: 'RFID Attendance System',
-      desc: 'Hardware + software solution for automating school attendance using RFID cards, Arduino, and a Python dashboard.',
-      tech: ['Python', 'Arduino', 'RFID', 'CSV'],
-      demo: '#',
+      title: 'LEXIS AI',
+      desc: 'An AI-powered student helper that understands the Nepal curriculum and provides interactive learning and practice tools.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'API', 'Database'],
+      demo: 'https://lexis-np.netlify.app/',
       github: '#',
-      detail: 'Built a full RFID-based attendance system combining Arduino hardware with a Python backend that logs attendance, generates reports, and displays real-time dashboards. Deployed in a school environment.',
+      detail: 'Developed a complete student helper AI to understand the curriculum of Nepal and provide students with a platform to learn and practice their skills.',
     },
     {
       icon: '🎨',

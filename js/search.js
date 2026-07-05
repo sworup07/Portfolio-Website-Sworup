@@ -22,17 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Sections */
   [
-    { id: 'home',      icon: '🏠', title: 'Home',      body: 'Hero — Sworup Pokhrel, software engineer, Nepal' },
-    { id: 'about',     icon: '👤', title: 'About Me',  body: 'Skills, timeline, bio, PCM student, Nepal' },
-    { id: 'gallery',   icon: '🖼️', title: 'Gallery',   body: 'Photo gallery, images, Syangja, Pokhara' },
-    { id: 'portfolio', icon: '💼', title: 'Portfolio', body: 'Projects, work, code, design' },
-    { id: 'blog',      icon: '✍️', title: 'Blog',      body: 'Articles, posts, coding, design, life' },
-    { id: 'contact',   icon: '📬', title: 'Contact',   body: 'Email, hire me, message, form' },
+    { id: 'home',          icon: '🏠', title: 'Home',                body: 'Hero — Sworup Pokhrel, web developer, designer, AI commercial creator, Nepal' },
+    { id: 'about',         icon: '👤', title: 'About Me',            body: 'Skills, timeline, bio, software engineering, Nepal' },
+    { id: 'expertise',     icon: '🧠', title: 'My Expertise',        body: 'HTML, CSS, JavaScript, graphic design, motion advertisement, AI prompt engineering, branding' },
+    { id: 'services',      icon: '🧰', title: 'Professional Services', body: 'Website development, graphic design, social media creatives, AI commercial advertisements, creative consultation' },
+    { id: 'gallery',       icon: '🖼️', title: 'Gallery',             body: 'Photo gallery, images, Syangja, Pokhara' },
+    { id: 'portfolio',     icon: '💼', title: 'Portfolio',           body: 'Projects, work, code, design' },
+    { id: 'commercial-ads',icon: '🎬', title: 'Commercial Advertising', body: 'AI commercial advertisements, spec ads, independent creative concepts, product launch' },
+    { id: 'why-me',        icon: '🤝', title: 'Why Work With Me',    body: 'Reliable, detail-oriented, full-stack creative, honest collaboration' },
+    { id: 'process',       icon: '🔄', title: 'Creative Process',    body: 'Discover, concept, design, build, refine, deliver' },
+    { id: 'tools',         icon: '🛠️', title: 'Creative Tools',      body: 'Figma, Photoshop, Illustrator, Premiere, Midjourney, Runway, VS Code' },
+    { id: 'blog',          icon: '✍️', title: 'Blog',                body: 'Articles, posts, coding, design, life' },
+    { id: 'testimonials',  icon: '💬', title: 'Client Testimonials', body: 'Social proof, client feedback, reviews' },
+    { id: 'faq',           icon: '❓', title: 'FAQ',                 body: 'Frequently asked questions, services, timelines, spec ads' },
+    { id: 'contact',       icon: '📬', title: 'Contact',             body: 'Email, hire me, message, form' },
   ].forEach(s => INDEX.push({ type: 'section', href: '#' + s.id, ...s }));
 
   /* Projects */
   PORTFOLIO_DATA.projects.forEach((p, i) => {
     INDEX.push({ type: 'project', icon: p.icon, title: p.title, body: p.desc + ' ' + p.tech.join(' '), href: '#portfolio', index: i });
+  });
+
+  /* Ad concepts */
+  PORTFOLIO_DATA.adConcepts.forEach((a) => {
+    INDEX.push({ type: 'section', icon: a.icon, title: a.title, body: a.label + ' ' + a.desc + ' ' + a.tags.join(' '), href: '#commercial-ads' });
   });
 
   /* Blog */

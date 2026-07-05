@@ -438,10 +438,152 @@ function closeBlogModal() {
 }
 
 /* ════════════════════════════════════════════════════════
+   EXPERTISE
+   ════════════════════════════════════════════════════════ */
+function renderExpertise() {
+  const grid = $('#expertise-grid');
+  if (!grid) return;
+  grid.innerHTML = PORTFOLIO_DATA.expertise.map(x => `
+    <div class="expertise-card">
+      <div class="expertise-top">
+        <span class="expertise-icon">${x.icon}</span>
+        <span class="expertise-group">${x.group}</span>
+      </div>
+      <div class="expertise-name">${x.name}</div>
+      <div class="expertise-desc">${x.desc}</div>
+      <div class="skill-track expertise-track"><div class="skill-fill" data-pct="${x.pct}"></div></div>
+      <div class="expertise-pct">${x.pct}%</div>
+    </div>`).join('');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.dataset.pct + '%'; io.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  $$('.expertise-track .skill-fill', grid).forEach(f => io.observe(f));
+}
+
+/* ════════════════════════════════════════════════════════
+   SERVICES
+   ════════════════════════════════════════════════════════ */
+function renderServices() {
+  const grid = $('#services-grid');
+  if (!grid) return;
+  grid.innerHTML = PORTFOLIO_DATA.services.map(s => `
+    <div class="service-card">
+      <div class="service-icon">${s.icon}</div>
+      <div class="service-title">${s.title}</div>
+      <div class="service-desc">${s.desc}</div>
+      <ul class="service-list">${s.items.map(i => `<li>${i}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   COMMERCIAL AD SHOWCASE
+   ════════════════════════════════════════════════════════ */
+function renderAdConcepts() {
+  const grid = $('#ads-grid');
+  if (!grid) return;
+  grid.innerHTML = PORTFOLIO_DATA.adConcepts.map(a => `
+    <div class="ad-card">
+      <div class="ad-card-top">
+        <span class="ad-icon">${a.icon}</span>
+        <span class="ad-label">${a.label}</span>
+      </div>
+      <div class="ad-title">${a.title}</div>
+      <div class="ad-desc">${a.desc}</div>
+      <div class="ad-tags">${a.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   WHY WORK WITH ME
+   ════════════════════════════════════════════════════════ */
+function renderWhyMe() {
+  const grid = $('#whyme-grid');
+  if (!grid) return;
+  grid.innerHTML = PORTFOLIO_DATA.whyWorkWithMe.map(w => `
+    <div class="whyme-card">
+      <div class="whyme-icon">${w.icon}</div>
+      <div class="whyme-title">${w.title}</div>
+      <div class="whyme-desc">${w.desc}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   CREATIVE PROCESS
+   ════════════════════════════════════════════════════════ */
+function renderProcess() {
+  const track = $('#process-track');
+  if (!track) return;
+  track.innerHTML = PORTFOLIO_DATA.process.map(p => `
+    <div class="process-item">
+      <div class="process-step">${p.step}</div>
+      <div class="process-title">${p.title}</div>
+      <div class="process-desc">${p.desc}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   CREATIVE TOOLS
+   ════════════════════════════════════════════════════════ */
+function renderTools() {
+  const wrap = $('#tools-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = PORTFOLIO_DATA.tools.map(t => `<span class="tool-chip">${t.name}</span>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   FUTURE VISION
+   ════════════════════════════════════════════════════════ */
+function renderVision() {
+  const grid = $('#vision-grid');
+  if (!grid) return;
+  grid.innerHTML = PORTFOLIO_DATA.futureVision.map(v => `
+    <div class="vision-card">
+      <div class="vision-icon">${v.icon}</div>
+      <div class="vision-title">${v.title}</div>
+      <div class="vision-desc">${v.desc}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   FAQ (accordion)
+   ════════════════════════════════════════════════════════ */
+function renderFAQ() {
+  const wrap = $('#faq-list');
+  if (!wrap) return;
+  wrap.innerHTML = PORTFOLIO_DATA.faq.map((f, i) => `
+    <div class="faq-item" data-index="${i}">
+      <button class="faq-question" id="faq-q-${i}" aria-expanded="false" aria-controls="faq-a-${i}">
+        <span>${f.q}</span>
+        <span class="faq-chevron">⌄</span>
+      </button>
+      <div class="faq-answer" id="faq-a-${i}" role="region" aria-labelledby="faq-q-${i}">
+        <p>${f.a}</p>
+      </div>
+    </div>`).join('');
+
+  $$('.faq-question', wrap).forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      $$('.faq-item', wrap).forEach(i => { i.classList.remove('open'); i.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false'); });
+      if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════════════
    BOOTSTRAP
    ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   renderSkills();
+  renderExpertise();
+  renderServices();
+  renderAdConcepts();
+  renderWhyMe();
+  renderProcess();
+  renderTools();
+  renderVision();
+  renderFAQ();
   renderProjects();
   renderBlog();
 
