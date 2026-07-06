@@ -292,6 +292,8 @@ body.dark
 .carousel-btn            { position:absolute; top:50%; transform:translateY(-50%); background:var(--surface); border:1px solid var(--border); border-radius:50%; width:36px; height:36px; cursor:pointer; font-size:20px; display:flex; align-items:center; justify-content:center; transition:background .2s,transform .2s; z-index:10; }
 #portfolio-prev          { left:-18px; }
 #portfolio-next          { right:-18px; }
+.carousel-container .carousel-btn:first-of-type { left:-18px; }
+.carousel-container .carousel-btn:last-of-type  { right:-18px; }
 .carousel-btn:hover      { background:var(--blue); color:#fff; transform:translateY(-50%) scale(1.1); }
 .modal-overlay           { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:24px; }
 .modal-overlay.open      { display:flex; }
@@ -397,7 +399,9 @@ body.dark .toast         { box-shadow:0 8px 32px rgba(0,0,0,.55); }
   footer                                      { flex-direction:column; text-align:center; padding:24px 20px; }
   
   .blog-grid                                  { padding-left:10px; padding-right:10px; }
-  .carousel-btn                               { display:none; }
+  .carousel-btn                               { width:30px; height:30px; font-size:15px; }
+  .carousel-container .carousel-btn:first-of-type { left:-4px; }
+  .carousel-container .carousel-btn:last-of-type  { right:-4px; }
   .nav-search-hint                            { display:none; }
   .search-modal                               { padding:60px 12px 12px; }
   .search-modal-inner                         { border-radius:14px; }
@@ -647,10 +651,12 @@ body.dark .mobile-profile-sheet { box-shadow:0 -12px 60px rgba(0,0,0,.6); }
    HYBRID CARD GRID — Gallery
    3-column uniform cards on desktop, 2 on tablet, 1 on mobile
    ════════════════════════════════════════════════════════ */
-.photo-grid              { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.photo-grid              { display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:6px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.photo-grid::-webkit-scrollbar { display:none; }
+.photo-grid.grabbing     { cursor:grabbing; }
 
 /* ── Card ── */
-.photo-card              { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s,border-color .25s; }
+.photo-card              { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s,border-color .25s; flex:0 0 260px; scroll-snap-align:start; }
 .photo-card:hover        { transform:translateY(-4px); box-shadow:0 16px 48px rgba(15,23,42,.12); border-color:rgba(59,130,246,.3); }
 body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 
@@ -685,8 +691,8 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .pc-img-wrap.loading .pc-img { opacity:0; }
 
 /* ── Responsive ── */
-@media (max-width:900px) { .photo-grid { grid-template-columns:repeat(2,1fr); gap:12px; } }
-@media (max-width:480px) { .photo-grid { grid-template-columns:1fr; gap:10px; } }
+@media (max-width:900px) { .photo-grid { gap:12px; } .photo-card { flex-basis:220px; } }
+@media (max-width:480px) { .photo-grid { gap:10px; } .photo-card { flex-basis:78vw; } }
 
 
 /* ════════════════════════════════════════════════════════
@@ -800,8 +806,16 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
    FAQ · CTA
    ════════════════════════════════════════════════════════ */
 
-.section-intro          { max-width:680px; margin:-24px auto 44px; text-align:center; font-size:14.5px; line-height:1.75; color:var(--muted); }
+.section-intro          { max-width:680px; margin:-24px auto 28px; text-align:center; font-size:14.5px; line-height:1.75; color:var(--muted); }
 .subsection-title       { margin-top:72px; }
+.feedback-trust-row     { justify-content:center; margin:0 auto 32px; }
+
+/* ── generic carousel wrapper (buttons + scroll container) ── */
+.carousel-container      { position:relative; }
+
+/* ── Per-carousel scroll-progress bar (sits above each carousel) ── */
+.carousel-progress       { width:100%; height:4px; border-radius:100px; background:var(--bg-alt); overflow:hidden; margin-bottom:20px; }
+.carousel-progress-fill  { height:100%; width:0%; background:var(--gradient); border-radius:100px; transition:width .12s linear; }
 
 /* ── shared card look ─────────────────────────────────── */
 .expertise-card, .service-card, .ad-card, .whyme-card, .vision-card {
@@ -817,8 +831,11 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .expertise-card:hover::before, .service-card:hover::before, .ad-card:hover::before,
 .whyme-card:hover::before, .vision-card:hover::before { opacity:1; }
 
-/* ── EXPERTISE ──────────────────────────────────────────── */
-.expertise-grid          { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; }
+/* ── EXPERTISE — horizontal carousel ───────────────────── */
+.expertise-grid          { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.expertise-grid::-webkit-scrollbar { display:none; }
+.expertise-grid.grabbing { cursor:grabbing; }
+.expertise-card          { flex:0 0 260px; scroll-snap-align:start; }
 .expertise-top           { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .expertise-icon          { font-size:30px; }
 .expertise-group         { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--blue); background:rgba(59,130,246,.1); border-radius:100px; padding:3px 10px; }
@@ -827,8 +844,11 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .expertise-track         { margin-bottom:8px; }
 .expertise-pct           { font-size:12px; font-weight:700; color:var(--blue); text-align:right; }
 
-/* ── SERVICES ───────────────────────────────────────────── */
-.services-grid           { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+/* ── SERVICES — horizontal carousel ────────────────────── */
+.services-grid           { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.services-grid::-webkit-scrollbar { display:none; }
+.services-grid.grabbing  { cursor:grabbing; }
+.service-card             { flex:0 0 300px; scroll-snap-align:start; }
 .service-icon             { font-size:34px; margin-bottom:16px; }
 .service-title            { font-size:18px; font-weight:800; color:var(--text); margin-bottom:10px; }
 .service-desc             { font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:16px; }
@@ -836,8 +856,11 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .service-list li          { font-size:13px; color:var(--text); padding-left:20px; position:relative; }
 .service-list li::before  { content:'✓'; position:absolute; left:0; color:var(--blue); font-weight:800; }
 
-/* ── COMMERCIAL AD SHOWCASE ─────────────────────────────── */
-.ads-grid                { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
+/* ── COMMERCIAL AD SHOWCASE — horizontal carousel ──────── */
+.ads-grid                { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.ads-grid::-webkit-scrollbar { display:none; }
+.ads-grid.grabbing       { cursor:grabbing; }
+.ad-card                  { flex:0 0 320px; scroll-snap-align:start; }
 .ad-card-top             { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; }
 .ad-icon                 { font-size:32px; }
 .ad-label                { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#ea580c; background:rgba(251,146,60,.14); border:1px solid rgba(251,146,60,.35); border-radius:100px; padding:4px 10px; white-space:nowrap; }
@@ -845,8 +868,11 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .ad-desc                 { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:18px; }
 .ad-tags                 { display:flex; flex-wrap:wrap; gap:8px; }
 
-/* ── WHY WORK WITH ME ───────────────────────────────────── */
-.whyme-grid              { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+/* ── WHY WORK WITH ME — horizontal carousel ─────────────── */
+.whyme-grid              { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.whyme-grid::-webkit-scrollbar { display:none; }
+.whyme-grid.grabbing     { cursor:grabbing; }
+.whyme-card              { flex:0 0 260px; scroll-snap-align:start; }
 .whyme-icon              { font-size:32px; margin-bottom:14px; }
 .whyme-title             { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
 .whyme-desc              { font-size:13.5px; color:var(--muted); line-height:1.7; }
@@ -859,25 +885,79 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 .process-title            { font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; }
 .process-desc             { font-size:12.5px; color:var(--muted); line-height:1.6; }
 
-/* ── CREATIVE TOOLS ─────────────────────────────────────── */
-.tools-wrap               { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:20px; }
-.tool-chip                { background:var(--bg-alt); border:1px solid var(--border); color:var(--text); border-radius:100px; padding:9px 20px; font-size:13px; font-weight:600; transition:border-color .2s,color .2s,transform .2s; }
+/* ── CREATIVE TOOLS — horizontal carousel ───────────────── */
+.tools-wrap               { display:flex; gap:12px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.tools-wrap::-webkit-scrollbar { display:none; }
+.tools-wrap.grabbing      { cursor:grabbing; }
+.tool-chip                { flex:0 0 auto; scroll-snap-align:start; background:var(--bg-alt); border:1px solid var(--border); color:var(--text); border-radius:100px; padding:9px 20px; font-size:13px; font-weight:600; white-space:nowrap; transition:border-color .2s,color .2s,transform .2s; }
 .tool-chip:hover          { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
 
-/* ── FUTURE VISION ──────────────────────────────────────── */
-.vision-grid              { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+/* ── FUTURE VISION — horizontal carousel ────────────────── */
+.vision-grid              { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.vision-grid::-webkit-scrollbar { display:none; }
+.vision-grid.grabbing     { cursor:grabbing; }
+.vision-card              { flex:0 0 260px; scroll-snap-align:start; }
 .vision-icon              { font-size:32px; margin-bottom:14px; }
 .vision-title             { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
 .vision-desc              { font-size:13.5px; color:var(--muted); line-height:1.7; }
 
-/* ── SOCIAL PROOF / TESTIMONIAL PLACEHOLDERS ────────────── */
-.testimonial-placeholder-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+/* ── SOCIAL PROOF — horizontal carousel ─────────────────── */
+.testimonial-placeholder-grid { display:flex; gap:22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding-bottom:10px; cursor:grab; -ms-overflow-style:none; scrollbar-width:none; }
+.testimonial-placeholder-grid::-webkit-scrollbar { display:none; }
+.testimonial-placeholder-grid.grabbing { cursor:grabbing; }
 .testimonial-placeholder-card {
+  flex:0 0 280px; scroll-snap-align:start;
   background:var(--bg-alt); border:1.5px dashed var(--border); border-radius:20px; padding:32px 26px; text-align:center;
 }
 .tp-quote-icon            { font-size:42px; font-weight:800; color:var(--blue); opacity:.35; line-height:1; margin-bottom:10px; font-family:Georgia,serif; }
 .tp-placeholder-text      { font-size:14px; font-weight:600; color:var(--text); line-height:1.6; margin-bottom:10px; }
 .tp-placeholder-sub       { font-size:12px; color:var(--muted); }
+
+/* ── Real submitted testimonial card ─────────────────────── */
+.testimonial-real-card    {
+  flex:0 0 280px; scroll-snap-align:start;
+  background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 24px; text-align:left;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; position:relative; overflow:hidden;
+}
+.testimonial-real-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); opacity:0; transition:opacity .25s; }
+.testimonial-real-card:hover   { transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:var(--blue); }
+.testimonial-real-card:hover::before { opacity:1; }
+.tr-quote-icon            { font-size:34px; font-weight:800; color:var(--blue); opacity:.3; line-height:1; margin-bottom:8px; font-family:Georgia,serif; }
+.tr-text                  { font-size:13.5px; color:var(--text); line-height:1.7; margin-bottom:18px; }
+.tr-footer                { display:flex; align-items:center; gap:10px; }
+.tr-avatar                { width:34px; height:34px; border-radius:50%; background:var(--bg-alt); border:1.5px solid var(--border); flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--blue); }
+.tr-avatar img            { width:100%; height:100%; object-fit:cover; }
+.tr-name                  { font-size:13px; font-weight:700; color:var(--text); }
+.tr-time                  { font-size:11px; color:var(--muted); }
+
+/* ── Add-a-testimonial trigger card ──────────────────────── */
+.testimonial-add-card     {
+  flex:0 0 220px; scroll-snap-align:start;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center;
+  background:rgba(59,130,246,.05); border:1.5px dashed var(--blue); border-radius:20px; padding:28px 20px;
+  cursor:pointer; transition:background .2s,transform .25s;
+}
+.testimonial-add-card:hover { background:rgba(59,130,246,.1); transform:translateY(-6px); }
+.testimonial-add-icon     { font-size:30px; color:var(--blue); }
+.testimonial-add-text     { font-size:13.5px; font-weight:700; color:var(--blue); }
+
+/* ── Testimonial modal ───────────────────────────────────── */
+.testimonial-modal-overlay { position:fixed; inset:0; background:rgba(15,23,42,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; z-index:1000; opacity:0; visibility:hidden; transition:opacity .25s ease; }
+.testimonial-modal-overlay.open { opacity:1; visibility:visible; }
+.testimonial-modal-box    { background:var(--surface); border-radius:22px; padding:36px 32px; max-width:440px; width:100%; position:relative; box-shadow:var(--shadow-lg); transform:translateY(16px); transition:transform .25s ease; }
+.testimonial-modal-overlay.open .testimonial-modal-box { transform:translateY(0); }
+.testimonial-modal-close  { position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:var(--bg-alt); color:var(--muted); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:border-color .2s,color .2s; }
+.testimonial-modal-close:hover { border-color:var(--blue); color:var(--blue); }
+.testimonial-modal-icon   { font-size:34px; margin-bottom:12px; }
+.testimonial-modal-title  { font-size:19px; font-weight:800; color:var(--text); margin-bottom:8px; }
+.testimonial-modal-sub    { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:22px; }
+.tf-textarea              { width:100%; min-height:110px; resize:vertical; background:var(--bg-alt); border:1.5px solid var(--border); border-radius:14px; padding:14px 16px; font-family:inherit; font-size:14px; color:var(--text); margin-bottom:14px; transition:border-color .2s,box-shadow .2s; }
+.tf-textarea:focus        { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(59,130,246,.12); }
+.tf-submit                { width:100%; background:var(--gradient); color:#fff; border:none; border-radius:100px; padding:12px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity .2s; }
+.tf-submit:hover          { opacity:.9; }
+.tf-submit:disabled       { opacity:.5; cursor:not-allowed; }
+.tf-signin-cta            { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px; background:var(--bg-alt); border:1px solid var(--border); border-radius:100px; font-size:13.5px; font-weight:600; color:var(--text); cursor:pointer; font-family:inherit; transition:background .2s,border-color .2s; }
+.tf-signin-cta:hover      { border-color:var(--blue); background:rgba(59,130,246,.06); }
 
 /* ── FAQ ACCORDION ──────────────────────────────────────── */
 .faq-list                { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
@@ -910,8 +990,11 @@ body.dark .photo-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.45); }
 }
 @media (max-width:640px) {
   .process-track { grid-template-columns:1fr; }
-  .expertise-grid, .services-grid, .ads-grid, .whyme-grid, .vision-grid,
-  .testimonial-placeholder-grid { grid-template-columns:1fr; }
+  .whyme-card, .vision-card { flex-basis:78vw; }
+  .expertise-card, .service-card { flex-basis:78vw; }
+  .ad-card { flex-basis:82vw; }
+  .testimonial-placeholder-card, .testimonial-real-card { flex-basis:78vw; }
+  .testimonial-add-card { flex-basis:60vw; }
   .faq-question { padding:16px 18px; font-size:13.5px; }
   .faq-item.open .faq-answer { padding:0 18px 18px; }
   .cta-heading { font-size:24px; }

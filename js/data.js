@@ -126,13 +126,17 @@ const PORTFOLIO_DATA = {
     { q: 'What services do you offer?', a: 'Website development (landing pages, portfolios, business sites), graphic design (posters, brochures, banners, business cards), social media creatives, and AI-assisted commercial advertisements and product videos.' },
     { q: 'Are the advertisement concepts on this site real client work?', a: 'No — the commercial advertisement showcase features independently created spec concepts built to demonstrate advertising ideas and storytelling skills. They are not affiliated with, endorsed by, or created for the brands referenced, and no official partnership is implied.' },
     { q: 'Do you work with international clients?', a: 'Yes. Work is delivered remotely, and communication happens over email or your preferred messaging platform regardless of location.' },
-    { q: 'What is your typical turnaround time?', a: 'It depends on project scope — a simple graphic can take about 3-4 hours , while a full website or ad campaign concept may take one to three days. Timelines are always agreed on before starting.' },
+    { q: 'What is your typical turnaround time?', a: 'It depends on project scope — a simple graphic can take a day or two, while a full website or ad campaign concept may take one to three weeks. Timelines are always agreed on before starting.' },
     { q: 'Can you help with both design and development?', a: 'Yes — that is the core strength of this practice: handling design, development, and creative advertising direction together instead of splitting the work across multiple people.' },
     { q: 'How do we get started?', a: 'Reach out through the contact form or email with a short brief of what you need. A response typically comes within 24 hours.' },
   ],
 
   /* ── Social proof placeholders (ready for real testimonials) ── */
-  testimonialsPlaceholder: true,
+  testimonialsStatic: [
+    { text: 'This space is reserved for feedback from real clients and collaborators.', sub: 'Testimonials will appear here as projects are completed.' },
+    { text: 'Working with businesses to build things they\'re proud to show off.', sub: 'Your review could be featured here.' },
+    { text: 'Honest, collaborative, detail-driven — that\'s the goal on every project.', sub: 'Reserved for future client feedback.' },
+  ],
 
   projects: [
     {
@@ -146,12 +150,12 @@ const PORTFOLIO_DATA = {
     },
     {
       icon: '🪪',
-      title: 'LEXIS AI',
-      desc: 'An AI-powered student helper that understands the Nepal curriculum and provides interactive learning and practice tools.',
-      tech: ['HTML', 'CSS', 'JavaScript', 'API', 'Database'],
-      demo: 'https://lexis-np.netlify.app/',
+      title: 'RFID Attendance System',
+      desc: 'Hardware + software solution for automating school attendance using RFID cards, Arduino, and a Python dashboard.',
+      tech: ['Python', 'Arduino', 'RFID', 'CSV'],
+      demo: '#',
       github: '#',
-      detail: 'Developed a complete student helper AI to understand the curriculum of Nepal and provide students with a platform to learn and practice their skills.',
+      detail: 'Built a full RFID-based attendance system combining Arduino hardware with a Python backend that logs attendance, generates reports, and displays real-time dashboards. Deployed in a school environment.',
     },
     {
       icon: '🎨',

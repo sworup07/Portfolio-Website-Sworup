@@ -20,7 +20,7 @@ const GALLERY_PHOTOS = [
 const sb  = () => window.sb;
 const uid = () => window.currentUser?.id ?? null;
 const uName  = () => window.currentUser?.user_metadata?.full_name  || window.currentUser?.email?.split('@')[0] || 'Anonymous';
-const uPhoto = () => window.currentUser?.user_metadata?.avatar_url || '';
+const uPhoto = () => getUserPhoto(window.currentUser);
 
 function _ago(d) {
   const s = Math.floor((Date.now() - new Date(d)) / 1000);
@@ -30,6 +30,58 @@ function _ago(d) {
   return Math.floor(s / 86400) + 'd ago';
 }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ════════════════════════════════════════════════════════
+   GENERIC CAROUSEL ENGINE
+   Works for any horizontal-scroll flex container:
+   drag-to-scroll on desktop (mouse), native touch-swipe on
+   mobile (overflow-x:auto), prev/next button controls, and
+   an optional scroll-progress bar shown above the carousel.
+   ════════════════════════════════════════════════════════ */
+function initCarousel(gridId, prevId, nextId, amount = 300, progressId = null) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  const progressFill = progressId ? document.getElementById(progressId) : null;
+
+  function updateProgress() {
+    if (!progressFill) return;
+    const max = grid.scrollWidth - grid.clientWidth;
+    const pct = max > 0 ? Math.min(100, (grid.scrollLeft / max) * 100) : 0;
+    progressFill.style.width = pct + '%';
+  }
+
+  /* Desktop drag-to-scroll */
+  let dragging = false, startX = 0, startScroll = 0, moved = false;
+  grid.addEventListener('mousedown', e => {
+    dragging = true; moved = false;
+    grid.classList.add('grabbing');
+    startX = e.pageX - grid.offsetLeft;
+    startScroll = grid.scrollLeft;
+  });
+  grid.addEventListener('mouseleave', () => { dragging = false; grid.classList.remove('grabbing'); });
+  grid.addEventListener('mouseup',    () => { dragging = false; grid.classList.remove('grabbing'); });
+  grid.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    const x = e.pageX - grid.offsetLeft;
+    if (Math.abs(x - startX) > 5) moved = true;
+    grid.scrollLeft = startScroll - (x - startX);
+  });
+  /* Prevent accidental card click right after a drag */
+  grid.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+
+  /* Prev / Next buttons — smooth scroll, works on phones & desktop */
+  document.getElementById(prevId)?.addEventListener('click', () => grid.scrollBy({ left: -amount, behavior: 'smooth' }));
+  document.getElementById(nextId)?.addEventListener('click', () => grid.scrollBy({ left:  amount, behavior: 'smooth' }));
+
+  /* Progress bar — tracks native scroll, drag, and button clicks alike */
+  grid.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', debounce(updateProgress, 150));
+  updateProgress();
+  /* Re-check once more shortly after load, in case content (e.g. async
+     testimonials) changed the scrollable width after the first paint */
+  setTimeout(updateProgress, 500);
+}
 
 /* ── Fetch like count ────────────────────────────────────── */
 async function _likeCount(postId) {
@@ -356,17 +408,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   /* ════════════════════════════════════════════════════════
-     PORTFOLIO DRAG SCROLL
+     ALL CAROUSELS — drag (desktop) + buttons (everywhere)
      ════════════════════════════════════════════════════════ */
-  const pg = document.getElementById('projects-grid');
-  if (pg) {
-    let dn = false, sx = 0, sl = 0;
-    pg.addEventListener('mousedown',  e => { dn = true; pg.classList.add('grabbing'); sx = e.pageX - pg.offsetLeft; sl = pg.scrollLeft; });
-    pg.addEventListener('mouseleave', () => { dn = false; pg.classList.remove('grabbing'); });
-    pg.addEventListener('mouseup',    () => { dn = false; pg.classList.remove('grabbing'); });
-    pg.addEventListener('mousemove',  e => { if (!dn) return; e.preventDefault(); pg.scrollLeft = sl - (e.pageX - pg.offsetLeft - sx); });
-    document.getElementById('portfolio-prev')?.addEventListener('click', () => pg.scrollBy({ left: -340, behavior: 'smooth' }));
-    document.getElementById('portfolio-next')?.addEventListener('click', () => pg.scrollBy({ left:  340, behavior: 'smooth' }));
-  }
+  initCarousel('photo-grid',        'gallery-prev',      'gallery-next',      280, 'gallery-progress');
+  initCarousel('projects-grid',     'portfolio-prev',    'portfolio-next',    340, 'portfolio-progress');
+  initCarousel('expertise-grid',    'expertise-prev',    'expertise-next',    280, 'expertise-progress');
+  initCarousel('services-grid',     'services-prev',     'services-next',    320, 'services-progress');
+  initCarousel('ads-grid',          'ads-prev',          'ads-next',         340, 'ads-progress');
+  initCarousel('whyme-grid',        'whyme-prev',        'whyme-next',       280, 'whyme-progress');
+  initCarousel('tools-wrap',        'tools-prev',        'tools-next',       240, 'tools-progress');
+  initCarousel('vision-grid',       'vision-prev',       'vision-next',      280, 'vision-progress');
+  initCarousel('blog-grid',         'blog-prev',         'blog-next',        320, 'blog-progress');
+  initCarousel('testimonials-grid', 'testimonials-prev', 'testimonials-next',300, 'testimonials-progress');
 
 });

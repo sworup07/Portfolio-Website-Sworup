@@ -48,3 +48,17 @@ function trapFocus(el) {
     }
   });
 }
+
+/* ── Resolve a Google OAuth profile photo across possible
+   Supabase user-object shapes. Different OAuth/session flows
+   populate different fields, so we check them all in order. ── */
+function getUserPhoto(user) {
+  if (!user) return '';
+  return (
+    user.user_metadata?.avatar_url ||
+    user.user_metadata?.picture ||
+    user.identities?.[0]?.identity_data?.avatar_url ||
+    user.identities?.[0]?.identity_data?.picture ||
+    ''
+  );
+}

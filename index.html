@@ -70,6 +70,7 @@
     <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
     <li><a href="#commercial-ads" data-section="commercial-ads">Ads</a></li>
     <li><a href="#blog"      data-section="blog">Blog</a></li>
+    <li><a href="#testimonials" data-section="testimonials">Feedback</a></li>
     <li><a href="#contact"   data-section="contact">Contact</a></li>
     <div class="nav-pill" id="nav-pill"></div>
   </ul>
@@ -148,6 +149,7 @@
       <a href="#portfolio" data-section="portfolio"> <span class="mm-icon">💼</span> Portfolio </a>
       <a href="#commercial-ads" data-section="commercial-ads"> <span class="mm-icon">🎬</span> Ads </a>
       <a href="#blog"      data-section="blog">      <span class="mm-icon">✍️</span> Blog      </a>
+      <a href="#testimonials" data-section="testimonials"> <span class="mm-icon">💬</span> Feedback </a>
       <a href="#faq"       data-section="faq">       <span class="mm-icon">❓</span> FAQ       </a>
       <a href="#contact"   data-section="contact">   <span class="mm-icon">📬</span> Contact   </a>
     </nav>
@@ -248,7 +250,7 @@
   <div class="hero-content">
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      Open to opportunities · Based in Nepal
+      Open to opportunities 
     </div>
     <h1>
       Hi, I'm <span class="gradient-text">Sworup Pokhrel</span>
@@ -346,7 +348,12 @@
       <div class="section-label">My Expertise</div>
       <h2>Where Code Meets Creativity</h2>
     </div>
-    <div class="expertise-grid" id="expertise-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="expertise-progress"></div></div>
+    <div class="carousel-container">
+      <button id="expertise-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="expertise-grid" id="expertise-grid"></div>
+      <button id="expertise-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -358,7 +365,12 @@
       <div class="section-label">Professional Services</div>
       <h2>How I Can Help Your Brand</h2>
     </div>
-    <div class="services-grid" id="services-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="services-progress"></div></div>
+    <div class="carousel-container">
+      <button id="services-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="services-grid" id="services-grid"></div>
+      <button id="services-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -371,7 +383,12 @@
       <h2>Through the Lens</h2>
     </div>
     <!-- Hybrid Card Grid — rendered by carousel.js -->
-    <div class="photo-grid" id="photo-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="gallery-progress"></div></div>
+    <div class="carousel-container">
+      <button id="gallery-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="photo-grid" id="photo-grid"></div>
+      <button id="gallery-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -464,6 +481,7 @@
       <div class="section-label">Portfolio</div>
       <h2>Selected Work</h2>
     </div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="portfolio-progress"></div></div>
     <div class="portfolio-container">
       <button id="portfolio-prev" class="carousel-btn">←</button>
       <div class="projects-grid" id="projects-grid"></div>
@@ -485,7 +503,12 @@
       advertising ideas, storytelling, and AI-assisted production skills. They are not official collaborations with, or
       endorsed by, any brand referenced or depicted.
     </p>
-    <div class="ads-grid" id="ads-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="ads-progress"></div></div>
+    <div class="carousel-container">
+      <button id="ads-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="ads-grid" id="ads-grid"></div>
+      <button id="ads-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -497,7 +520,12 @@
       <div class="section-label">Why Work With Me</div>
       <h2>A Different Kind of Creative Partner</h2>
     </div>
-    <div class="whyme-grid" id="whyme-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="whyme-progress"></div></div>
+    <div class="carousel-container">
+      <button id="whyme-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="whyme-grid" id="whyme-grid"></div>
+      <button id="whyme-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -521,13 +549,23 @@
       <div class="section-label">Creative Tools</div>
       <h2>What I Build &amp; Design With</h2>
     </div>
-    <div class="tools-wrap" id="tools-wrap"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="tools-progress"></div></div>
+    <div class="carousel-container">
+      <button id="tools-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="tools-wrap" id="tools-wrap"></div>
+      <button id="tools-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
 
     <div class="section-title subsection-title">
       <div class="section-label">Future Vision</div>
       <h2>Where This Is Headed</h2>
     </div>
-    <div class="vision-grid" id="vision-grid"></div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="vision-progress"></div></div>
+    <div class="carousel-container">
+      <button id="vision-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="vision-grid" id="vision-grid"></div>
+      <button id="vision-next" class="carousel-btn" aria-label="Scroll right">→</button>
+    </div>
   </div>
 </section>
 
@@ -539,8 +577,11 @@
       <div class="section-label">Insights</div>
       <h2>Thinking Out Loud</h2>
     </div>
-    <div class="blog-carousel-wrapper">
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="blog-progress"></div></div>
+    <div class="blog-carousel-wrapper carousel-container">
+      <button id="blog-prev" class="carousel-btn" aria-label="Scroll left">←</button>
       <div class="blog-grid" id="blog-grid"></div>
+      <button id="blog-next" class="carousel-btn" aria-label="Scroll right">→</button>
     </div>
   </div>
 </section>
@@ -577,28 +618,34 @@
 <section id="testimonials" class="section">
   <div class="container">
     <div class="section-title">
-      <div class="section-label">Social Proof</div>
-      <h2>Client Testimonials</h2>
+      <div class="section-label">Feedback</div>
+      <h2>What People Are Saying</h2>
     </div>
-    <div class="testimonial-placeholder-grid">
-      <div class="testimonial-placeholder-card">
-        <div class="tp-quote-icon">"</div>
-        <div class="tp-placeholder-text">This space is reserved for feedback from real clients and collaborators.</div>
-        <div class="tp-placeholder-sub">Testimonials will appear here as projects are completed.</div>
-      </div>
-      <div class="testimonial-placeholder-card">
-        <div class="tp-quote-icon">"</div>
-        <div class="tp-placeholder-text">Working with businesses to build things they're proud to show off.</div>
-        <div class="tp-placeholder-sub">Your review could be featured here.</div>
-      </div>
-      <div class="testimonial-placeholder-card">
-        <div class="tp-quote-icon">"</div>
-        <div class="tp-placeholder-text">Honest, collaborative, detail-driven — that's the goal on every project.</div>
-        <div class="tp-placeholder-sub">Reserved for future client feedback.</div>
-      </div>
+    <p class="section-intro">Honest feedback from people I've worked with — verified through Google sign-in and posted directly, with nothing edited or curated.</p>
+    <div class="tags feedback-trust-row">
+      <span class="tag">✅ Verified via Google Sign-in</span>
+      <span class="tag">🌐 Public &amp; Unfiltered</span>
+      <span class="tag">🚫 No Fake Reviews</span>
+    </div>
+    <div class="carousel-progress"><div class="carousel-progress-fill" id="testimonials-progress"></div></div>
+    <div class="carousel-container">
+      <button id="testimonials-prev" class="carousel-btn" aria-label="Scroll left">←</button>
+      <div class="testimonial-placeholder-grid" id="testimonials-grid"></div>
+      <button id="testimonials-next" class="carousel-btn" aria-label="Scroll right">→</button>
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════ TESTIMONIAL MODAL ═══════════════════════════ -->
+<div class="testimonial-modal-overlay" id="testimonial-modal" role="dialog" aria-modal="true" aria-label="Leave a testimonial">
+  <div class="testimonial-modal-box">
+    <button class="testimonial-modal-close" id="testimonial-modal-close" aria-label="Close">✕</button>
+    <div class="testimonial-modal-icon">💬</div>
+    <h3 class="testimonial-modal-title">Share Your Experience</h3>
+    <p class="testimonial-modal-sub">Your note will be posted publicly in the Social Proof section above.</p>
+    <div id="testimonial-form-wrap"></div>
+  </div>
+</div>
 
 
 <!-- ════════════════════════════════════════════════════════ FAQ ════════════════════════════════════════════════════════ -->

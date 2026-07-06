@@ -68,7 +68,7 @@ async function signInWithGoogle() {
       setTimeout(async () => {
         const { error } = await _sb.auth.signInWithOAuth({
           provider: 'google',
-          options:  { redirectTo, queryParams: { prompt: 'select_account' } },
+          options:  { redirectTo, scopes: 'profile email', queryParams: { prompt: 'select_account' } },
         });
         if (error) { errorLoading(); showToast('❌ Sign-in failed. Try again.', 4000); }
       }, 300);
@@ -78,6 +78,7 @@ async function signInWithGoogle() {
         provider: 'google',
         options:  {
           redirectTo,
+          scopes:       'profile email',
           queryParams:  { prompt: 'select_account' },
           skipBrowserRedirect: false,
         },
@@ -140,7 +141,7 @@ function initAuth() {
    user.user_metadata.avatar_url   ← was user.photoURL
    ════════════════════════════════════════════════════════ */
 function _name(user)   { return user?.user_metadata?.full_name  || user?.email?.split('@')[0] || 'User'; }
-function _photo(user)  { return user?.user_metadata?.avatar_url || ''; }
+function _photo(user)  { return getUserPhoto(user); }
 function _uid(user)    { return user?.id || ''; }
 
 function _avatarHTML(photoURL, name, w, h) {

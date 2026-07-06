@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'process',       icon: '🔄', title: 'Creative Process',    body: 'Discover, concept, design, build, refine, deliver' },
     { id: 'tools',         icon: '🛠️', title: 'Creative Tools',      body: 'Figma, Photoshop, Illustrator, Premiere, Midjourney, Runway, VS Code' },
     { id: 'blog',          icon: '✍️', title: 'Blog',                body: 'Articles, posts, coding, design, life' },
-    { id: 'testimonials',  icon: '💬', title: 'Client Testimonials', body: 'Social proof, client feedback, reviews' },
+    { id: 'testimonials',  icon: '💬', title: 'Feedback',            body: 'Client feedback, testimonials, reviews, social proof' },
     { id: 'faq',           icon: '❓', title: 'FAQ',                 body: 'Frequently asked questions, services, timelines, spec ads' },
     { id: 'contact',       icon: '📬', title: 'Contact',             body: 'Email, hire me, message, form' },
   ].forEach(s => INDEX.push({ type: 'section', href: '#' + s.id, ...s }));
