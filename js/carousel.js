@@ -14,6 +14,8 @@ const GALLERY_PHOTOS = [
   { src:'images/sworup6.jpeg',     caption:'Cultural Vibes',                location:'Nepal'            },
   { src:'images/sworup7.jpg',      caption:'Aesthetic Vibes',               location:'Pokhara, Nepal'   },
   { src:'images/certificate1.jpg', caption:'Graphic Design Certificate',    location:'Achievement'      },
+ { src:'images/certificate2.png',      caption:'AI & vibe coding & Ads Creation', location:'Achievement'   },
+  { src:'images/certificate3.png', caption:'PEA Quiz topper 2026',  location:'Achievement'      },
 ];
 
 /* ── Supabase helpers ───────────────────────────────────── */
