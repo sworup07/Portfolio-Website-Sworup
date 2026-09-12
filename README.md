@@ -1,21 +1,75 @@
-MIT License
+# Sworup Pokhrel — Portfolio
 
-Copyright (c) 2026 sworup07
+**Web Developer · Creative Designer · AI Commercial Creator**
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+A modern, responsive personal portfolio showcasing my projects, skills, and journey as a Computer Science student — built with a focus on clean UI, performance, and user experience.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+🔗 Live site: [sworupdev.netlify.app](https://sworupdev.netlify.app)
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+---
+
+## What's inside
+
+- **Hero, About & Journey timeline** — background, skills, and milestones
+- **Services & Expertise** — what I offer
+- **Gallery** — photo showcase with like/comment interactions
+- **Portfolio** — selected projects
+- **Commercial Advertising** — AI-assisted spec ad concepts
+- **Blog** — written posts/insights
+- **Testimonials** — Google-verified feedback wall
+- **FAQ & Contact** — with a working contact form
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Structure | Static HTML |
+| Styling | Vanilla CSS (`style.css`) |
+| Interactivity | Vanilla JavaScript (modular, see `js/`) |
+| Auth | Supabase (Google sign-in) |
+| Contact form | Formspree |
+| Hosting | Netlify |
+
+## Project structure
+
+```
+index.html          # Single-page site — all sections
+style.css            # All styling
+js/
+  utils.js           # Shared helpers
+  data.js             # Content data (projects, blog posts, services, etc.)
+  render.js           # Renders data-driven sections into the DOM
+  carousel.js          # Carousel/scroll behavior for grids
+  search.js             # Site-wide Ctrl+K search
+  ui.js                  # General UI interactions (modals, menus, toasts)
+  auth.js                 # Supabase Google sign-in
+  script.js                # Entry point — wires everything together
+images/              # Photos, avatars, OG image
+sitemap.xml           # SEO sitemap
+```
+
+Keep `index.html`, `style.css`, `js/`, and `images/` in the same directory — the HTML references them as relative paths.
+
+## Running locally
+
+No build step required — it's a static site.
+
+```bash
+git clone https://github.com/sworup07/Portfolio-Website-Sworup.git
+cd Portfolio-Website-Sworup
+```
+
+Then just open `index.html` in a browser, or serve it locally:
+
+```bash
+npx serve .
+```
+
+## Notes on the integrations
+
+- **Contact form** posts to Formspree — the form ID in `index.html` is a public endpoint identifier, not a secret.
+- **Supabase auth** uses the public `anon` key by design (never the `service_role` key). Any data the signed-in features touch (likes, comments, testimonials) should be protected by Supabase Row Level Security policies on the backend, not by keeping the key secret.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
